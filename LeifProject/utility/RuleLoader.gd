@@ -46,9 +46,12 @@ func _reset_settings() -> void:
 func randomize_rules() -> void:
 	var _rules = current_rules
 	for r in _rules:
-		r[2] = randf() * randf() * 100
-		if randf() > 0.5:
-			r[2] *= -1
+		if randf() < 0.1:
+			r[2] = 0.0
+		else:
+			r[2] = randf() * randf() * 100
+			if randf() > 0.5:
+				r[2] *= -1
 		r[3] = randf() * randf() * 400
 	current_rules = _rules
 	current_rule_name = "<custom *>"
