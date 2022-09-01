@@ -1,0 +1,60 @@
+[gd_resource type="Theme" load_steps=6 format=2]
+
+[ext_resource path="res://assets/Overpass-Medium.ttf" type="DynamicFontData" id=1]
+
+[sub_resource type="StyleBoxFlat" id=6]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color( 0.180392, 0.180392, 0.180392, 0.47451 )
+border_width_left = 4
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.101961, 0.101961, 0.505882 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=5]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color( 0.180392, 0.180392, 0.180392, 1 )
+border_width_left = 4
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 2
+border_color = Color( 0.101961, 0.101961, 0.101961, 0.505882 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="StyleBoxFlat" id=7]
+content_margin_left = 8.0
+content_margin_right = 8.0
+bg_color = Color( 0.0352941, 0.0352941, 0.0352941, 1 )
+border_width_left = 4
+border_width_top = 2
+border_width_right = 4
+border_width_bottom = 2
+border_color = Color( 0.372549, 0.372549, 0.372549, 0.505882 )
+border_blend = true
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
+
+[sub_resource type="DynamicFont" id=3]
+extra_spacing_top = 2
+font_data = ExtResource( 1 )
+
+[resource]
+default_font = SubResource( 3 )
+Button/styles/focus = SubResource( 6 )
+Button/styles/hover = SubResource( 5 )
+Button/styles/normal = SubResource( 6 )
+Button/styles/pressed = SubResource( 7 )
+Label/fonts/font = SubResource( 3 )

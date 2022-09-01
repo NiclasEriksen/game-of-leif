@@ -13,8 +13,8 @@ var BLUE: int = 3
 func set_parameters(rule: Array):
 	$Sliders/AttractionSlider.value = rule[2]
 	$Sliders/RangeSlider.value = rule[3]
-	$Visual/Attraction.text = "%.2f" % rule[2]
-	$Visual/Range.text = "%.2f" % rule[3]
+	$Visual/Attraction.text = "g: %.2f" % rule[2]
+	$Visual/Range.text = "r: %.2f" % rule[3]
 	var pair_str := ""
 	match int(rule[0]):
 		RED:
@@ -54,9 +54,9 @@ func set_parameters(rule: Array):
 
 func _on_AttractionSlider_value_changed(value: float):
 	emit_signal("attraction_updated", rule_index, value)
-	$Visual/Attraction.text = "%.2f" % value
+	$Visual/Attraction.text = "g: %.2f" % value
 
 
 func _on_RangeSlider_value_changed(value: float):
 	emit_signal("range_updated", rule_index, value)
-	$Visual/Range.text = "%.2f" % value
+	$Visual/Range.text = "r: %.2f" % value

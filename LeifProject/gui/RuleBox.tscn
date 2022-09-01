@@ -28,6 +28,7 @@ margin_left = 36.0
 margin_right = 106.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 70, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 0.458824 )
 align = 1
 
 [node name="Range" type="Label" parent="Visual"]
@@ -35,6 +36,7 @@ margin_left = 110.0
 margin_right = 180.0
 margin_bottom = 14.0
 rect_min_size = Vector2( 70, 0 )
+custom_colors/font_color = Color( 1, 1, 1, 0.458824 )
 align = 1
 
 [node name="Sliders" type="HBoxContainer" parent="."]
@@ -55,6 +57,7 @@ margin_bottom = 16.0
 rect_min_size = Vector2( 75, 0 )
 min_value = -100.0
 step = 0.1
+tick_count = 5
 
 [node name="RangeSlider" type="HSlider" parent="Sliders"]
 margin_left = 110.0
