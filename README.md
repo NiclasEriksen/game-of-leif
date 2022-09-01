@@ -48,6 +48,7 @@ This is obviously very computationally heavy as each particle will pull or push 
 - Import/Export the rules to a string, in order to share discoveries
 - Randomizer for the parameters
 - Shader effects (just glow for now)
+- Ambient particles
 - Windows and Linux binaries
 
 ------

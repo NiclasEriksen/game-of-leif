@@ -1,9 +1,10 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://simulation/WorldContainer.gd" type="Script" id=1]
 [ext_resource path="res://simulation/LeifWorld.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/RuleContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/theme.tres" type="Theme" id=4]
+[ext_resource path="res://assets/dust.png" type="Texture" id=5]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -15,6 +16,10 @@ glow_blend_mode = 1
 glow_hdr_threshold = 1.5
 glow_bicubic_upscale = true
 glow_high_quality = true
+
+[sub_resource type="Gradient" id=3]
+offsets = PoolRealArray( 0, 0.234637, 0.513967, 1 )
+colors = PoolColorArray( 1, 1, 1, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0 )
 
 [sub_resource type="CanvasItemMaterial" id=2]
 light_mode = 1
@@ -30,6 +35,22 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 rect_min_size = Vector2( 2000, 2000 )
 color = Color( 0, 0, 0, 1 )
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="."]
+position = Vector2( 960, 540 )
+amount = 256
+lifetime = 2.5
+texture = ExtResource( 5 )
+emission_shape = 2
+emission_rect_extents = Vector2( 960, 540 )
+spread = 180.0
+gravity = Vector2( 0, 0 )
+initial_velocity = 25.0
+initial_velocity_random = 0.5
+scale_amount = 0.04
+scale_amount_random = 0.1
+color_ramp = SubResource( 3 )
+hue_variation = 1.0
 
 [node name="LeifWorld" parent="." instance=ExtResource( 2 )]
 position = Vector2( 170, 0 )
@@ -143,8 +164,8 @@ window_title = "Pick a name for these rules"
 [node name="RuleNameEdit" type="LineEdit" parent="CanvasLayer/SavePanel"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 214.0
-margin_bottom = 34.0
+margin_right = 238.0
+margin_bottom = 42.0
 align = 1
 max_length = 32
 
@@ -157,8 +178,8 @@ window_title = "Paste the import string here"
 [node name="ImportStringEdit" type="LineEdit" parent="CanvasLayer/ImportPanel"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 220.0
-margin_bottom = 34.0
+margin_right = 245.0
+margin_bottom = 42.0
 max_length = 512
 
 [node name="ExportPanel" type="AcceptDialog" parent="CanvasLayer"]
@@ -170,8 +191,8 @@ window_title = "Copy this string to share it!"
 [node name="ExportStringEdit" type="LineEdit" parent="CanvasLayer/ExportPanel"]
 margin_left = 8.0
 margin_top = 8.0
-margin_right = 212.0
-margin_bottom = 32.0
+margin_right = 237.0
+margin_bottom = 42.0
 align = 1
 max_length = 512
 editable = false
