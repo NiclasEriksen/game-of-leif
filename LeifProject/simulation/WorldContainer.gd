@@ -134,7 +134,7 @@ func _on_RestartButton_pressed():
 
 
 func _on_LoadButton_pressed():
-	$CanvasLayer/LoadMenu.popup(Rect2(40, 40, 350, 200))
+	$CanvasLayer/LoadMenu.popup(Rect2(40, 40, 250, 200))
 	$CanvasLayer/LoadMenu.grab_focus()
 
 
