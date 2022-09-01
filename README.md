@@ -72,3 +72,4 @@ I will add a brief description later of how to build the libraries for running t
 - Improve performance of C++ code
 - Show/hide toggle for GUI
 - Graphics settings
+- Pan and zoom
