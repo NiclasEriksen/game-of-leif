@@ -4,11 +4,15 @@ Leif Simulator is (*kind of*) a cellular automata that is based purely on attrac
 
 ![](https://i.imgur.com/8imeUUk.png)
 
+------
+
 ### Status
 
 ------
 
 **Prototype.** There is a lot of performance still to be squeezed out of this, and to move the simulation into a separate thread so the UI can be processed independently at a higher frame rate. Expect 15-30fps on mid-range CPU's with 3400 particles.
+
+------
 
 ### Inspiration
 
@@ -22,6 +26,8 @@ Here is the code for their simulator (C++): https://github.com/hunar4321/life_co
 
 The patterns seen in their README should (for the most part) easily be reproducible in Leif.
 
+------
+
 ### How it works
 
 ------
@@ -32,6 +38,8 @@ A red particle might pull on a green particle, while the green particle pushes o
 
 This is obviously very computationally heavy as each particle will pull or push on *all* other particles(-1) in range every frame, in this simulations current state that means each potentially up to 11.5 *million* interactions every cycle.
 
+------
+
 ### Added features so far
 
 ------
@@ -41,6 +49,8 @@ This is obviously very computationally heavy as each particle will pull or push 
 - Randomizer for the parameters
 - Shader effects (just glow for now)
 - Windows and Linux binaries
+
+------
 
 ### Build instructions
 
