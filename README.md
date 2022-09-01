@@ -1,6 +1,6 @@
-# Leif Simulator
+# Game of Leif
 
-Leif Simulator is (*kind of*) a cellular automata that is based purely on attraction and repulsion. It is built in Godot 3.5 with the heavy calculations done in C++ through GDNative.
+Game of Leif is (*kind of*) a cellular automata that is based purely on attraction and repulsion. It is built in Godot 3.5 with the heavy calculations done in C++ through GDNative.
 
 ![](https://i.imgur.com/8imeUUk.png)
 

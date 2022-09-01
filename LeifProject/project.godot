@@ -10,7 +10,7 @@ config_version=4
 
 [application]
 
-config/name="Leif Simulator"
+config/name="Game of Leif"
 run/main_scene="res://simulation/WorldContainer.tscn"
 config/icon="res://icon.png"
 
