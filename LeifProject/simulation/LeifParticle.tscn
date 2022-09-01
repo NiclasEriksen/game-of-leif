@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://bin/leifparticle.gdns" type="Script" id=1]
+[ext_resource path="res://assets/particle.png" type="Texture" id=2]
+
+[node name="LeifParticle" type="Sprite"]
+scale = Vector2( 0.2, 0.2 )
+texture = ExtResource( 2 )
+script = ExtResource( 1 )
