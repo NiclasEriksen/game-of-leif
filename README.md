@@ -60,3 +60,15 @@ This is obviously very computationally heavy as each particle will pull or push 
 ------
 
 I will add a brief description later of how to build the libraries for running the simulation, but if you're already familiar with the GDNative workflow this should be a breeze.
+
+------
+
+### To do
+
+------
+
+- Configurable particle count (for individual colors)
+- Separate processing into own thread
+- Improve performance of C++ code
+- Show/hide toggle for GUI
+- Graphics settings
