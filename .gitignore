@@ -5,6 +5,7 @@
 *.Leif
 SConstruct
 *.sh
+*.os
 *.dblite
 godot-cpp/*
 
