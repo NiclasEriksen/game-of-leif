@@ -19,8 +19,8 @@ func build(rules: Array) -> void:
 		rs.rule_index = i
 		add_child(rs)
 		rs.set_parameters(rule)
-		rs.connect("attraction_updated", self, "_on_RuleBox_attraction_updated")
-		rs.connect("range_updated", self, "_on_RuleBox_range_updated")
+		var _c = rs.connect("attraction_updated", self, "_on_RuleBox_attraction_updated")
+		_c = rs.connect("range_updated", self, "_on_RuleBox_range_updated")
 
 
 func _on_RuleBox_attraction_updated(index: int, value: float):

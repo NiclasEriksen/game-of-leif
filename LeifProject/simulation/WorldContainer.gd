@@ -29,13 +29,14 @@ func _ready():
 	world.WORLD_SIZE = WORLD_SIZE
 	world.set_position(WORLD_OFFSET)
 	running = false
-	RuleLoader.connect("current_rules_changed", self, "_on_current_rules_changed")
-	RuleLoader.connect("current_rulename_changed", self, "_on_current_rulename_changed")
+	var _c = RuleLoader.connect("current_rules_changed", self, "_on_current_rules_changed")
+	_c = RuleLoader.connect("current_rulename_changed", self, "_on_current_rulename_changed")
 	_populate_load_menu()
 	randomize()
 	spawn_all()
 	RuleLoader._reset_settings()
 	_on_current_rules_changed(RuleLoader.current_rule_name)
+#	$CanvasLayer/OpenAudioFileDialog.popup_centered(Vector2(500, 500))
 
 func clear_all() -> void:
 	for n in get_tree().get_nodes_in_group("red"):
@@ -201,3 +202,7 @@ func _on_QuitButton2_pressed():
 	running = false
 	RuleLoader.save_data()
 	get_tree().quit()
+
+
+func _on_OpenAudioFileDialog_file_selected(path):
+	$AudioPlayer.load_from_file(path)

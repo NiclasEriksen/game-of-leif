@@ -1,6 +1,7 @@
-[gd_scene load_steps=8 format=2]
+[gd_scene load_steps=9 format=2]
 
 [ext_resource path="res://simulation/WorldContainer.gd" type="Script" id=1]
+[ext_resource path="res://simulation/AudioPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/RuleContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/theme.tres" type="Theme" id=4]
 [ext_resource path="res://assets/dust.png" type="Texture" id=5]
@@ -203,6 +204,28 @@ margin_bottom = 20.0
 theme = ExtResource( 4 )
 allow_search = true
 
+[node name="OpenAudioFileDialog" type="FileDialog" parent="CanvasLayer"]
+margin_right = 315.0
+margin_bottom = 130.0
+window_title = "Open a File"
+mode = 0
+access = 2
+filters = PoolStringArray( "*.mp3, *.ogg ; Audio files\"" )
+
+[node name="MainControl" type="MarginContainer" parent="CanvasLayer"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_top = -200.0
+rect_min_size = Vector2( 0, 200 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/MainControl"]
+margin_right = 1920.0
+margin_bottom = 200.0
+rect_min_size = Vector2( 0, 200 )
+
+[node name="AudioPlayer" parent="." instance=ExtResource( 2 )]
+
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/HBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/HBoxContainer/QuitButton2" to="." method="_on_QuitButton2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/HBoxContainer2/FullscreenButton" to="." method="_on_FullscreenButton_pressed"]
@@ -216,3 +239,4 @@ allow_search = true
 [connection signal="confirmed" from="CanvasLayer/SavePanel" to="." method="_on_SavePanel_confirmed"]
 [connection signal="confirmed" from="CanvasLayer/ImportPanel" to="." method="_on_ImportPanel_confirmed"]
 [connection signal="id_pressed" from="CanvasLayer/LoadMenu" to="." method="_on_LoadMenu_id_pressed"]
+[connection signal="file_selected" from="CanvasLayer/OpenAudioFileDialog" to="." method="_on_OpenAudioFileDialog_file_selected"]
