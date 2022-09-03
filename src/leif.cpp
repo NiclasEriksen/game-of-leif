@@ -56,6 +56,7 @@ LeifWorld::~LeifWorld() {
 void LeifWorld::_init() {
 }
 
+
 void LeifWorld::_gather_particles() {
     Array red_arr = get_tree()->get_nodes_in_group("red");
     Array green_arr = get_tree()->get_nodes_in_group("green");

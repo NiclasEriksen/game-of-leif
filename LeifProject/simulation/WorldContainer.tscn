@@ -1,7 +1,6 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://simulation/WorldContainer.gd" type="Script" id=1]
-[ext_resource path="res://simulation/LeifWorld.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/RuleContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/theme.tres" type="Theme" id=4]
 [ext_resource path="res://assets/dust.png" type="Texture" id=5]
@@ -56,10 +55,6 @@ scale_amount = 0.04
 scale_amount_random = 0.1
 color_ramp = SubResource( 3 )
 hue_variation = 1.0
-
-[node name="LeifWorld" parent="." instance=ExtResource( 2 )]
-position = Vector2( 170, 0 )
-WORLD_SIZE = Vector2( 1750, 1080 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 

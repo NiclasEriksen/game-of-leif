@@ -1,7 +1,11 @@
 extends Node2D
 
+export(Vector2) var WORLD_SIZE = Vector2(1670, 1080)
+export(Vector2) var WORLD_OFFSET = Vector2(250, 0)
+
 onready var PARTICLE_SCENE = preload("res://simulation/LeifParticle.tscn")
-onready var world = get_node("LeifWorld")
+onready var WORLD_SCENE = preload("res://simulation/LeifWorld.tscn")
+var world: Node2D
 
 var parallelThreads := []
 
@@ -11,12 +15,19 @@ var WHITE := Globals.WHITE
 var BLUE := Globals.BLUE
 
 
-const PARTICLE_COUNT := 750
+var RED_PARTICLE_COUNT := 750
+var GREEN_PARTICLE_COUNT := 750
+var WHITE_PARTICLE_COUNT := 750
+var BLUE_PARTICLE_COUNT := 750
 
 var running := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	world = WORLD_SCENE.instance()
+	add_child(world)
+	world.WORLD_SIZE = WORLD_SIZE
+	world.set_position(WORLD_OFFSET)
 	running = false
 	RuleLoader.connect("current_rules_changed", self, "_on_current_rules_changed")
 	RuleLoader.connect("current_rulename_changed", self, "_on_current_rulename_changed")
@@ -37,31 +48,30 @@ func clear_all() -> void:
 		n.queue_free()
 
 
-
 func spawn_all() -> void:
 	running = false
-	for _i in range(PARTICLE_COUNT):
+	for _i in range(RED_PARTICLE_COUNT):
 		var p := Vector2(world.WORLD_SIZE.x * randf(), world.WORLD_SIZE.y * randf())
 		var ps: Sprite = PARTICLE_SCENE.instance()
 		ps.position = p
 		ps.modulate = Globals.RED_COLOR
 		ps.add_to_group("red")
 		world.add_child(ps)
-	for _i in range(PARTICLE_COUNT):
+	for _i in range(GREEN_PARTICLE_COUNT):
 		var p := Vector2(world.WORLD_SIZE.x * randf(), world.WORLD_SIZE.y * randf())
 		var ps: Sprite = PARTICLE_SCENE.instance()
 		ps.position = p
 		ps.modulate = Globals.GREEN_COLOR
 		ps.add_to_group("green")
 		world.add_child(ps)
-	for _i in range(PARTICLE_COUNT):
+	for _i in range(WHITE_PARTICLE_COUNT):
 		var p := Vector2(world.WORLD_SIZE.x * randf(), world.WORLD_SIZE.y * randf())
 		var ps: Sprite = PARTICLE_SCENE.instance()
 		ps.position = p
 		ps.modulate = Globals.WHITE_COLOR
 		ps.add_to_group("white")
 		world.add_child(ps)
-	for _i in range(PARTICLE_COUNT):
+	for _i in range(BLUE_PARTICLE_COUNT):
 		var p := Vector2(world.WORLD_SIZE.x * randf(), world.WORLD_SIZE.y * randf())
 		var ps: Sprite = PARTICLE_SCENE.instance()
 		ps.position = p
@@ -71,6 +81,24 @@ func spawn_all() -> void:
 
 	world._gather_particles()
 	running = true
+
+
+func restart_simulation() -> void:
+	running = false
+	print("Restarting simulation")
+	_reset_world()
+#	clear_all()
+	spawn_all()
+
+
+func _reset_world() -> void:
+	print("Resetting world")
+	world.free()
+	world = WORLD_SCENE.instance()
+	add_child(world)
+	world.WORLD_SIZE = WORLD_SIZE
+	world.set_position(WORLD_OFFSET)
+
 
 func _run_rule(ruledef: Array) -> void:
 	world.rule(int(ruledef[0]), int(ruledef[1]), ruledef[2], ruledef[3])
@@ -129,8 +157,7 @@ func _on_SavePanel_confirmed():
 
 
 func _on_RestartButton_pressed():
-	running = false
-	var _s := get_tree().reload_current_scene()
+	restart_simulation()
 
 
 func _on_LoadButton_pressed():
