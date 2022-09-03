@@ -1,10 +1,11 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://simulation/WorldContainer.gd" type="Script" id=1]
 [ext_resource path="res://simulation/AudioPlayer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://gui/RuleContainer.tscn" type="PackedScene" id=3]
 [ext_resource path="res://gui/theme.tres" type="Theme" id=4]
 [ext_resource path="res://assets/dust.png" type="Texture" id=5]
+[ext_resource path="res://simulation/AudioController.tscn" type="PackedScene" id=6]
 
 [sub_resource type="Environment" id=1]
 background_mode = 4
@@ -151,6 +152,12 @@ margin_right = 134.0
 margin_bottom = 28.0
 text = "Export"
 
+[node name="MusicButton" type="Button" parent="CanvasLayer/Control/RuleInfoContainer2/ImportButtons"]
+margin_left = 138.0
+margin_right = 196.0
+margin_bottom = 28.0
+text = "Music"
+
 [node name="RuleContainer" parent="CanvasLayer/Control" instance=ExtResource( 3 )]
 margin_top = 184.0
 margin_right = 250.0
@@ -226,6 +233,8 @@ rect_min_size = Vector2( 0, 200 )
 
 [node name="AudioPlayer" parent="." instance=ExtResource( 2 )]
 
+[node name="AudioController" parent="." instance=ExtResource( 6 )]
+
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/HBoxContainer/RestartButton" to="." method="_on_RestartButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/HBoxContainer/QuitButton2" to="." method="_on_QuitButton2_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/HBoxContainer2/FullscreenButton" to="." method="_on_FullscreenButton_pressed"]
@@ -234,6 +243,7 @@ rect_min_size = Vector2( 0, 200 )
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/RuleButtonContainer/SaveButton" to="." method="_on_SaveButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/ImportButtons/ImportButton" to="." method="_on_ImportButton_pressed"]
 [connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/ImportButtons/ExportButton" to="." method="_on_ExportButton_pressed"]
+[connection signal="pressed" from="CanvasLayer/Control/RuleInfoContainer2/ImportButtons/MusicButton" to="." method="_on_MusicButton_pressed"]
 [connection signal="attraction_updated" from="CanvasLayer/Control/RuleContainer" to="." method="_on_RuleContainer_attraction_updated"]
 [connection signal="range_updated" from="CanvasLayer/Control/RuleContainer" to="." method="_on_RuleContainer_range_updated"]
 [connection signal="confirmed" from="CanvasLayer/SavePanel" to="." method="_on_SavePanel_confirmed"]

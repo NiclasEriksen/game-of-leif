@@ -18,7 +18,6 @@ config/icon="res://icon.png"
 
 Globals="*res://utility/Globals.gd"
 RuleLoader="*res://utility/RuleLoader.gd"
-AudioController="*res://simulation/AudioController.gd"
 
 [display]
 

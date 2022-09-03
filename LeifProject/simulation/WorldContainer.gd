@@ -36,7 +36,6 @@ func _ready():
 	spawn_all()
 	RuleLoader._reset_settings()
 	_on_current_rules_changed(RuleLoader.current_rule_name)
-#	$CanvasLayer/OpenAudioFileDialog.popup_centered(Vector2(500, 500))
 
 func clear_all() -> void:
 	for n in get_tree().get_nodes_in_group("red"):
@@ -206,3 +205,7 @@ func _on_QuitButton2_pressed():
 
 func _on_OpenAudioFileDialog_file_selected(path):
 	$AudioPlayer.load_from_file(path)
+
+
+func _on_MusicButton_pressed():
+	$CanvasLayer/OpenAudioFileDialog.popup_centered(Vector2(500, 500))

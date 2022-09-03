@@ -27,6 +27,7 @@ var rules := {
 	]
 }
 onready var current_rules: Array = rules[current_rule_name].duplicate(true)
+var music_rules: Array
 
 
 signal current_rules_changed(rule_name)
@@ -68,7 +69,7 @@ func modify_rule(rule_index: int, value_index: int, value: float) -> void:
 		print("Invalid rule value index, not modified!")
 		return
 	if value == _rules[rule_index][value_index]:
-		print("Rule value identical, aborting.")
+#		print("Rule value identical, aborting.")
 		return
 	_rules[rule_index][value_index] = value
 	current_rules = _rules
