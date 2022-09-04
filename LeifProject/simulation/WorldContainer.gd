@@ -106,7 +106,7 @@ func _run_rule(ruledef: Array) -> void:
 
 func _thread_process() -> void:
 	var cr: Array = RuleLoader.current_rules
-
+#	world.color_rules(cr)
 	for r in cr:
 		_run_rule(r)
 
