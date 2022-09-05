@@ -50,8 +50,8 @@ func randomize_rules() -> void:
 		if randf() < 0.1:
 			r[2] = 0.0
 		else:
-			var rf := randf()
-			r[2] = (rf * rf * rf) * 100
+			var rf1 := randf()
+			r[2] = (rf1 * rf1 * rf1) * 50
 			if randf() > 0.5:
 				r[2] *= -1
 		r[3] = randf() * randf() * 400

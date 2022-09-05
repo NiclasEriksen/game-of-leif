@@ -48,7 +48,8 @@ func modify_random_rules() -> void:
 				0.0,
 				400.0
 			))
-		if disk > 0.75 and randf() > 0.66:
+#		if disk > 0.75 and randf() > 0.66:
+		if disk > 0.80 and randf() > 0.66:
 			var cv: float = cr[i][2]
 			RuleLoader.modify_rule(i, 2, cv * -1)
 			last_rules[i][2] *= -1
