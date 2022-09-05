@@ -52,6 +52,7 @@ This is obviously very computationally heavy as each particle will pull or push 
 - Shader effects (just glow for now)
 - Ambient particles
 - Windows and Linux binaries
+- Music controlled (MP3 & OGG)
 
 ------
 
@@ -69,7 +70,6 @@ I will add a brief description later of how to build the libraries for running t
 
 - Configurable particle count (for individual colors)
 - Separate processing into own thread
-- Improve performance of C++ code
 - Show/hide toggle for GUI
 - Graphics settings
 - Pan and zoom
