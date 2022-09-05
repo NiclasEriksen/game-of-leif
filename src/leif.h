@@ -35,6 +35,8 @@ public:
     Vector2 get_pos();
     void set_velocity(Vector2 vel);
     void set_pos(Vector2 pos);
+    void set_pos_x(float x);
+    void set_pos_y(float y);
 
     LeifParticle();
     ~LeifParticle();

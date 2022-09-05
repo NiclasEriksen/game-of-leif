@@ -40,6 +40,12 @@ Vector2 LeifParticle::get_pos() {
 void LeifParticle::set_pos(Vector2 p) {
     pos = p;
 }
+void LeifParticle::set_pos_x(float x) {
+    pos.x = x;
+}
+void LeifParticle::set_pos_y(float y) {
+    pos.y = y;
+}
 
 
 
@@ -178,8 +184,11 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
         p1vel.y = (p1vel.y + (fy * g)) * 0.5;
 
 
-        if (((p1pos.x - WORLD_SIZE.x) > 0 && p1vel.x > 0) || (p1pos.x < 0 && p1vel.x < 0)) { p1vel.x *= -1;}
-        if (((p1pos.y - WORLD_SIZE.y) > 0 && p1vel.y > 0) || (p1pos.y < 0 && p1vel.y < 0)) { p1vel.y *= -1;}
+        if ((p1pos.x - WORLD_SIZE.x) > 0 && p1vel.x > 0) { p1vel.x *= -1; p1->set_pos_x(WORLD_SIZE.x);} 
+        if (p1pos.x < 0 && p1vel.x < 0) { p1vel.x *= -1; p1->set_pos_x(0); }
+        if ((p1pos.y - WORLD_SIZE.y) > 0 && p1vel.y > 0) { p1vel.y *= -1; p1->set_pos_y(WORLD_SIZE.y);} 
+        if (p1pos.y < 0 && p1vel.y < 0) { p1vel.y *= -1; p1->set_pos_y(0); }
+        
         p1->set_velocity(p1vel);
 
     }
