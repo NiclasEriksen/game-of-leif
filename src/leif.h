@@ -46,7 +46,6 @@ class LeifWorld : public Node2D {
     GODOT_CLASS(LeifWorld, Node2D)
 
 private:
-    VisualServer* Visual;
     Vector2 WORLD_SIZE = Vector2(750, 750);
 
     float PARTICLE_RADIUS = 6.0;
@@ -60,7 +59,6 @@ private:
     std::vector<LeifParticle *> white;
     std::vector<LeifParticle *> blue;
 
-// const GROUPS := ["yellow", "red", "green"]
 
 public:
     static void _register_methods();

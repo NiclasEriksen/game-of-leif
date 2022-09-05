@@ -4,6 +4,7 @@ const MIN_DB := 60
 const RULE_G_CHANGE := 5.0
 const RULE_R_CHANGE := 20.0
 var cooldown := false
+var playing := false
 
 var AUDIO_STRENGTH := [0.0, 0.0, 0.0]
 var FREQ_RANGES := [
@@ -11,26 +12,6 @@ var FREQ_RANGES := [
 	[200.0, 400.0],
 	[1000.0, 6000.0]
 ]
-#
-#var AUDIO_STRENGTH := [1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0, 1.0]
-#var FREQ_RANGES := [
-#	[0, 20.0],	# Red
-#	[20.0, 40.0],
-#	[40.0, 60.0],
-#	[60.0, 90.0],
-#	[90.0, 130.0],	# Green
-#	[130.0, 170.0],
-#	[170.0, 220.0],
-#	[220.0, 270.0],
-#	[270.0, 350.0],	# White
-#	[350.0, 450.0],
-#	[450.0, 580.0],
-#	[580.0, 800.0],
-#	[800.0, 1100.0],	# Blue
-#	[1100.0, 1500.0],
-#	[1500.0, 2000.0],
-#	[2000.0, 4000.0]
-#]
 
 
 var last_rules: Array = []
@@ -39,7 +20,7 @@ var last_rules: Array = []
 var num_rules := 16
 
 var spectrum: AudioEffectInstance
-
+signal mid_changed(val)
 
 func _ready():
 	spectrum = AudioServer.get_bus_effect_instance(0, 0)
@@ -53,7 +34,7 @@ func modify_random_rules() -> void:
 	var mid: float = AUDIO_STRENGTH[1]
 	var disk: float = AUDIO_STRENGTH[2]
 	if not cooldown:
-		if bass > 0.75:
+		if bass > 0.8:
 			cooldown = true
 			RuleLoader.randomize_rules()
 			last_rules = RuleLoader.current_rules.duplicate(true)
@@ -74,7 +55,8 @@ func modify_random_rules() -> void:
 		else:
 			var lv: float = last_rules[i][2]
 			RuleLoader.modify_rule(i, 2, (lv - lv / 2) + lv * disk)
-			
+	
+	emit_signal("mid_changed", mid)
 #			else:	# g
 #				var higher: bool = R_DIRECTIONS[i]
 #				var v = a * RULE_G_CHANGE
@@ -93,6 +75,8 @@ func modify_random_rules() -> void:
 
 
 func _process(_delta):
+	if !playing:
+		return
 	for i in range(3):
 		var magnitude: float = spectrum.get_magnitude_for_frequency_range(FREQ_RANGES[i][0], FREQ_RANGES[i][1]).length()
 		var energy: float = clamp((MIN_DB + linear2db(magnitude)) / MIN_DB, 0.0, 1.0)

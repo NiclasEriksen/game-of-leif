@@ -9,6 +9,9 @@ var world: Node2D
 
 var parallelThreads := []
 
+const BASE_GLOW_INTENSITY = 0.5
+var glow_intensity: float = BASE_GLOW_INTENSITY
+
 var RED := Globals.RED
 var GREEN := Globals.GREEN
 var WHITE := Globals.WHITE
@@ -110,10 +113,15 @@ func _thread_process() -> void:
 	for r in cr:
 		_run_rule(r)
 
-func _process(_delta) -> void:
+func _process(delta) -> void:
 	$CanvasLayer/Control/FPSLabel.text = "FPS: " + str(Engine.get_frames_per_second())
 	if running:
 		_thread_process()
+	$WorldEnvironment.environment.glow_intensity = lerp(
+		$WorldEnvironment.environment.glow_intensity,
+		glow_intensity,
+		delta * 4.0
+	)
 
 func _populate_load_menu() -> void:
 	var r = RuleLoader.rules
@@ -205,7 +213,12 @@ func _on_QuitButton2_pressed():
 
 func _on_OpenAudioFileDialog_file_selected(path):
 	$AudioPlayer.load_from_file(path)
+	$AudioController.playing = true
 
 
 func _on_MusicButton_pressed():
 	$CanvasLayer/OpenAudioFileDialog.popup_centered(Vector2(500, 500))
+
+
+func _on_AudioController_mid_changed(val):
+	glow_intensity = BASE_GLOW_INTENSITY + val * 2.0

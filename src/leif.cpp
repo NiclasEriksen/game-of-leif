@@ -54,21 +54,11 @@ LeifWorld::~LeifWorld() {
 }
 
 void LeifWorld::_init() {
-    Visual = Visual->get_singleton();
 }
 
 
 void LeifWorld::_gather_particles() {
     Godot::print("Gathering particles");
-
-    // test_p = Visual->canvas_item_create();
-    // test_tr = Transform2D();
-    // RID self_id = get_canvas_item();
-    // Vector2 pos = Vector2(500, 500);
-    // Color col = Color(1.0, 0.0, 0.0);
-    // Visual->canvas_item_set_parent(test_p, self_id);
-    // Visual->canvas_item_add_circle(test_p, pos, PARTICLE_RADIUS, col);
-
 
     Array red_arr = get_tree()->get_nodes_in_group("red");
     Array green_arr = get_tree()->get_nodes_in_group("green");
@@ -155,7 +145,7 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
         #pragma omp parallel for
         for (int j = 0; j < p2_length; j++) {
             LeifParticle* p2 = particles2[j];
-            Vector2 p2pos = p2->get_position();
+            const Vector2 p2pos = p2->get_position();
             const float dx = p1pos.x - p2pos.x;
             const float dy = p1pos.y - p2pos.y;
             const float r = std::sqrt(dx * dx + dy * dy);
