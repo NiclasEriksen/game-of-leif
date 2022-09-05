@@ -26,12 +26,15 @@ class LeifParticle : public Node2D {
 
 private:
     Vector2 velocity = Vector2(0, 0);
+    Vector2 pos = Vector2(0, 0);
 
 
 public:
     static void _register_methods();
     Vector2 get_velocity();
+    Vector2 get_pos();
     void set_velocity(Vector2 vel);
+    void set_pos(Vector2 pos);
 
     LeifParticle();
     ~LeifParticle();

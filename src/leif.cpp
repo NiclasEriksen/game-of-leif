@@ -26,12 +26,21 @@ void LeifParticle::_init() {
 }
 
 Vector2 LeifParticle::get_velocity() {
-    return LeifParticle::velocity;
+    return velocity;
 }
 
 void LeifParticle::set_velocity(Vector2 vel) {
-    LeifParticle::velocity = vel;
+    velocity = vel;
 }
+
+Vector2 LeifParticle::get_pos() {
+    return pos;
+}
+
+void LeifParticle::set_pos(Vector2 p) {
+    pos = p;
+}
+
 
 
 void LeifParticle::_process(float delta) {
@@ -65,16 +74,24 @@ void LeifWorld::_gather_particles() {
     Array white_arr = get_tree()->get_nodes_in_group("white");
     Array blue_arr = get_tree()->get_nodes_in_group("blue");
     for (int i = 0; i < red_arr.size(); i++) {
-        LeifWorld::red.push_back(red_arr[i]);
+        LeifParticle* p = red_arr[i];
+        p->set_pos(p->get_position());
+        LeifWorld::red.push_back(p);
     }
     for (int i = 0; i < green_arr.size(); i++) {
-        LeifWorld::green.push_back(green_arr[i]);
+        LeifParticle* p = green_arr[i];
+        p->set_pos(p->get_position());
+        LeifWorld::green.push_back(p);
     }
     for (int i = 0; i < white_arr.size(); i++) {
-        LeifWorld::white.push_back(white_arr[i]);
+        LeifParticle* p = white_arr[i];
+        p->set_pos(p->get_position());
+        LeifWorld::white.push_back(p);
     }
     for (int i = 0; i < blue_arr.size(); i++) {
-        LeifWorld::blue.push_back(blue_arr[i]);
+        LeifParticle* p = blue_arr[i];
+        p->set_pos(p->get_position());
+        LeifWorld::blue.push_back(p);
     }
     LeifWorld::PARTICLE_COUNT_RED = red.size();
     LeifWorld::PARTICLE_COUNT_GREEN = green.size();
@@ -141,11 +158,11 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
         LeifParticle* p1 = particles1[i];
         float fx = 0;
         float fy = 0;
-        Vector2 p1pos = p1->get_position();
+        Vector2 p1pos = p1->get_pos();
         #pragma omp parallel for
         for (int j = 0; j < p2_length; j++) {
             LeifParticle* p2 = particles2[j];
-            const Vector2 p2pos = p2->get_position();
+            const Vector2 p2pos = p2->get_pos();
             const float dx = p1pos.x - p2pos.x;
             const float dy = p1pos.y - p2pos.y;
             const float r = std::sqrt(dx * dx + dy * dy);
@@ -160,11 +177,17 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
         p1vel.x = (p1vel.x + (fx * g)) * 0.5;
         p1vel.y = (p1vel.y + (fy * g)) * 0.5;
 
-        p1->set_position(p1pos + p1vel);
 
         if (((p1pos.x - WORLD_SIZE.x) > 0 && p1vel.x > 0) || (p1pos.x < 0 && p1vel.x < 0)) { p1vel.x *= -1;}
         if (((p1pos.y - WORLD_SIZE.y) > 0 && p1vel.y > 0) || (p1pos.y < 0 && p1vel.y < 0)) { p1vel.y *= -1;}
         p1->set_velocity(p1vel);
 
+    }
+
+    for (int i = 0; i < p1_length; i++) {
+        LeifParticle* p1 = particles1[i];
+        const Vector2 new_pos = p1->get_pos() + p1->get_velocity();
+        p1->set_position(new_pos);
+        p1->set_pos(new_pos);
     }
 }
