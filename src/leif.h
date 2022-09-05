@@ -6,6 +6,9 @@
 #include <SceneTree.hpp>
 #include <String.hpp>
 #include <omp.h>
+#include <RID.hpp>
+#include <VisualServer.hpp>
+#include <Transform2D.hpp>
 #include <vector>
 
 const int RED = 0;
@@ -43,11 +46,15 @@ class LeifWorld : public Node2D {
     GODOT_CLASS(LeifWorld, Node2D)
 
 private:
+    VisualServer* Visual;
     Vector2 WORLD_SIZE = Vector2(750, 750);
+
+    float PARTICLE_RADIUS = 6.0;
     int PARTICLE_COUNT_RED = 1000;
     int PARTICLE_COUNT_GREEN = 1000;
     int PARTICLE_COUNT_WHITE = 1000;
     int PARTICLE_COUNT_BLUE = 1000;
+
     std::vector<LeifParticle *> red;
     std::vector<LeifParticle *> green;
     std::vector<LeifParticle *> white;
