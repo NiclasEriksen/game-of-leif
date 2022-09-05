@@ -7,10 +7,14 @@ reloadable=false
 
 [entry]
 
+HTML5.wasm32="res://bin/js/libleifparticle.wasm"
+HTML5.wasm64="res://bin/js/libleifparticle.wasm"
 Windows.64="res://bin/windows/libleifparticle.dll"
 X11.64="res://bin/x11/libleifparticle.so"
 
 [dependencies]
 
+HTML5.wasm32=[  ]
+HTML5.wasm64=[  ]
 Windows.64=[  ]
 X11.64=[  ]
