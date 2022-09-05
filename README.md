@@ -12,7 +12,7 @@ Game of Leif is (*kind of*) a cellular automata that is based purely on attracti
 
 ------
 
-**Prototype.** There is a lot of performance still to be squeezed out of this, and to move the simulation into a separate thread so the UI can be processed independently at a higher frame rate. Expect 15-30fps on mid-range CPU's with 3400 particles.
+**Prototype.** There is a lot of performance still to be squeezed out of this, and to move the simulation into a separate thread so the UI can be processed independently at a higher frame rate. Expect 15-30fps on mid-range CPU's with 3600 particles.
 
 ------
 
