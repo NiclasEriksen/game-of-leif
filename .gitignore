@@ -6,6 +6,7 @@
 SConstruct
 *.sh
 *.os
+*.bc
 *.dblite
 godot-cpp/*
 
