@@ -28,10 +28,7 @@ var running := false
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	OS.set_window_maximized(true)
-	world = WORLD_SCENE.instance()
-	add_child(world)
-	world.WORLD_SIZE = WORLD_SIZE
-	world.set_position(WORLD_OFFSET)
+	_reset_world()
 	running = false
 	var _c = RuleLoader.connect("current_rules_changed", self, "_on_current_rules_changed")
 	_c = RuleLoader.connect("current_rulename_changed", self, "_on_current_rulename_changed")
@@ -97,9 +94,11 @@ func restart_simulation() -> void:
 
 func _reset_world() -> void:
 	print("Resetting world")
-	world.free()
+	if world != null:
+		world.free()
 	world = WORLD_SCENE.instance()
 	add_child(world)
+	world.BOUNDS_TYPE = Globals.BOUNDS_STRICT
 	world.WORLD_SIZE = WORLD_SIZE
 	world.set_position(WORLD_OFFSET)
 
@@ -110,7 +109,6 @@ func _run_rule(ruledef: Array) -> void:
 
 func _thread_process() -> void:
 	var cr: Array = RuleLoader.current_rules
-#	world.color_rules(cr)
 	for r in cr:
 		_run_rule(r)
 

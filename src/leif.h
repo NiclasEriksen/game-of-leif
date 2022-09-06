@@ -15,6 +15,9 @@ const int RED = 0;
 const int GREEN = 1;
 const int WHITE = 2;
 const int BLUE = 3;
+const int BOUNDS_DISABLED = 0;
+const int BOUNDS_STRICT = 1;
+const int BOUNDS_REPEATING = 2;
 
 typedef wchar_t CharType;
 
@@ -53,7 +56,8 @@ class LeifWorld : public Node2D {
 private:
     Vector2 WORLD_SIZE = Vector2(750, 750);
 
-    float PARTICLE_RADIUS = 6.0;
+    int BOUNDS_TYPE = BOUNDS_STRICT;
+
     int PARTICLE_COUNT_RED = 1000;
     int PARTICLE_COUNT_GREEN = 1000;
     int PARTICLE_COUNT_WHITE = 1000;

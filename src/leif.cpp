@@ -3,12 +3,6 @@
 using namespace godot;
 
 
-
-void LeifWorld::_process(float delta) {
-
-}
-
-
 void LeifParticle::_register_methods() {
     register_method("_process", &LeifParticle::_process);
     register_property<LeifParticle, Vector2>("velocity", &LeifParticle::velocity, Vector2(0, 0));
@@ -47,8 +41,6 @@ void LeifParticle::set_pos_y(float y) {
     pos.y = y;
 }
 
-
-
 void LeifParticle::_process(float delta) {
 }
 
@@ -57,8 +49,8 @@ void LeifWorld::_register_methods() {
     register_method("_process", &LeifWorld::_process);
     register_method("rule", &LeifWorld::rule);
     register_method("_gather_particles", &LeifWorld::_gather_particles);
-    register_property<LeifWorld, Vector2>("WORLD_SIZE", &LeifWorld::WORLD_SIZE, Vector2(1500, 1000));
-    register_property<LeifWorld, float>("PARTICLE_RADIUS", &LeifWorld::PARTICLE_RADIUS, 6.0);
+    register_property<LeifWorld, Vector2>("WORLD_SIZE", &LeifWorld::WORLD_SIZE, Vector2(1920, 1080));
+    register_property<LeifWorld, int>("BOUNDS_TYPE", &LeifWorld::BOUNDS_TYPE, BOUNDS_STRICT);
 }
 
 LeifWorld::LeifWorld() {
@@ -157,14 +149,14 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
     if (std::abs(G) < 0.1 || std::abs(radius) < 1.0) { return; }
     const float g = G / -100;
 
-    omp_set_num_threads(8);
+    omp_set_num_threads(4);
     omp_set_nested(true);
     #pragma omp parallel for
     for (int i = 0; i < p1_length; i++) {
         LeifParticle* p1 = particles1[i];
+        const Vector2 p1pos = p1->get_pos();
         float fx = 0;
         float fy = 0;
-        Vector2 p1pos = p1->get_pos();
         #pragma omp parallel for
         for (int j = 0; j < p2_length; j++) {
             LeifParticle* p2 = particles2[j];
@@ -172,7 +164,7 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
             const float dx = p1pos.x - p2pos.x;
             const float dy = p1pos.y - p2pos.y;
             const float r = std::sqrt(dx * dx + dy * dy);
-            if (r < radius && r > 0) {
+            if (r > 0 && r < radius) {
                 fx += (dx / r);
                 fy += (dy / r);
             }
@@ -183,20 +175,25 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
         p1vel.x = (p1vel.x + (fx * g)) * 0.5;
         p1vel.y = (p1vel.y + (fy * g)) * 0.5;
 
+        if (BOUNDS_TYPE == BOUNDS_STRICT) {
+            if ((p1pos.x - WORLD_SIZE.x) > 0 && p1vel.x > 0) { p1vel.x *= -1; p1->set_pos_x(WORLD_SIZE.x);} 
+            else if (p1pos.x < 0 && p1vel.x < 0) { p1vel.x *= -1; p1->set_pos_x(0); }
+            if ((p1pos.y - WORLD_SIZE.y) > 0 && p1vel.y > 0) { p1vel.y *= -1; p1->set_pos_y(WORLD_SIZE.y);} 
+            else if (p1pos.y < 0 && p1vel.y < 0) { p1vel.y *= -1; p1->set_pos_y(0); }
+        }
 
-        if ((p1pos.x - WORLD_SIZE.x) > 0 && p1vel.x > 0) { p1vel.x *= -1; p1->set_pos_x(WORLD_SIZE.x);} 
-        if (p1pos.x < 0 && p1vel.x < 0) { p1vel.x *= -1; p1->set_pos_x(0); }
-        if ((p1pos.y - WORLD_SIZE.y) > 0 && p1vel.y > 0) { p1vel.y *= -1; p1->set_pos_y(WORLD_SIZE.y);} 
-        if (p1pos.y < 0 && p1vel.y < 0) { p1vel.y *= -1; p1->set_pos_y(0); }
-        
         p1->set_velocity(p1vel);
 
     }
 
+    // Update positions of all particles in particles1
     for (int i = 0; i < p1_length; i++) {
         LeifParticle* p1 = particles1[i];
         const Vector2 new_pos = p1->get_pos() + p1->get_velocity();
         p1->set_position(new_pos);
         p1->set_pos(new_pos);
     }
+}
+
+void LeifWorld::_process(float delta) {
 }
