@@ -2,9 +2,11 @@
 
 Game of Leif is (*kind of*) a cellular automata that is based purely on attraction and repulsion. It is built in Godot 3.5 with the heavy calculations done in C++ through GDNative.
 
-![](https://i.imgur.com/qdUNf2O.png)
+![](https://i.imgur.com/XK99xWN.png)
 
-![](https://i.imgur.com/CtsJGuD.png)
+![](https://i.imgur.com/e6Rrt9u.png)
+
+![](https://i.imgur.com/UASDqOR.png)
 
 ------
 
@@ -38,7 +40,7 @@ We have 4 sets of particles in different colors. These will either pull or push 
 
 A red particle might pull on a green particle, while the green particle pushes on the red, which will end in an equilibrium at a certain distance based on their strength. The interesting part is when you add another color, e.g. blue, and it might pull on *both* red and green while being repulsed by them. This will disturb the equilibrium and perhaps cause an oscillation/vibration. Throw *another* color in to the mix, and the results becomes too hard to predict.
 
-This is obviously very computationally heavy as each particle will pull or push on *all* other particles(-1) in range every frame, in this simulations current state that means each potentially up to 11.5 *million* interactions every cycle.
+This is obviously very computationally heavy as each particle will pull or push on *all* other particles(-1) in range every frame.
 
 ------
 
