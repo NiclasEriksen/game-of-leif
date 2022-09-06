@@ -68,8 +68,8 @@ I will add a brief description later of how to build the libraries for running t
 
 ------
 
-- Configurable particle count (for individual colors)
+- ~~Configurable particle count (for individual colors)~~
 - Separate processing into own thread
-- Show/hide toggle for GUI
+- ~~Show/hide toggle for GUI~~
 - Graphics settings
 - Pan and zoom
