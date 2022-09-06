@@ -31,6 +31,8 @@ light_mode = 1
 
 [node name="WorldContainer" type="Node2D"]
 script = ExtResource( 1 )
+WORLD_SIZE = Vector2( 1920, 1080 )
+WORLD_OFFSET = Vector2( 0, 0 )
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource( 1 )

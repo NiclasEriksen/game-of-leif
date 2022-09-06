@@ -27,6 +27,7 @@ var running := false
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	OS.set_window_maximized(true)
 	world = WORLD_SCENE.instance()
 	add_child(world)
 	world.WORLD_SIZE = WORLD_SIZE
