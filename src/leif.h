@@ -17,7 +17,6 @@ const int WHITE = 2;
 const int BLUE = 3;
 const int BOUNDS_DISABLED = 0;
 const int BOUNDS_STRICT = 1;
-const int BOUNDS_REPEATING = 2;
 
 typedef wchar_t CharType;
 

@@ -63,7 +63,6 @@ LeifWorld::~LeifWorld() {
 void LeifWorld::_init() {
 }
 
-
 void LeifWorld::_gather_particles() {
     Godot::print("Gathering particles");
 
@@ -97,6 +96,7 @@ void LeifWorld::_gather_particles() {
     LeifWorld::PARTICLE_COUNT_BLUE = blue.size();
 }
 
+// This is the method called by GDScript, which wraps the _rule method
 void LeifWorld::rule(int p1name, int p2name, float G, float radius) {
     std::vector<LeifParticle *> p1arr;
     std::vector<LeifParticle *> p2arr;
@@ -178,7 +178,7 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
         if (BOUNDS_TYPE == BOUNDS_STRICT) {
             if ((p1pos.x - WORLD_SIZE.x) > 0 && p1vel.x > 0) { p1vel.x *= -1; p1->set_pos_x(WORLD_SIZE.x);} 
             else if (p1pos.x < 0 && p1vel.x < 0) { p1vel.x *= -1; p1->set_pos_x(0); }
-            if ((p1pos.y - WORLD_SIZE.y) > 0 && p1vel.y > 0) { p1vel.y *= -1; p1->set_pos_y(WORLD_SIZE.y);} 
+            else if ((p1pos.y - WORLD_SIZE.y) > 0 && p1vel.y > 0) { p1vel.y *= -1; p1->set_pos_y(WORLD_SIZE.y);} 
             else if (p1pos.y < 0 && p1vel.y < 0) { p1vel.y *= -1; p1->set_pos_y(0); }
         }
 
