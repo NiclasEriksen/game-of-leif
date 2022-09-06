@@ -7,6 +7,10 @@ func _ready():
 	pass
 
 
+func stop() -> void:
+	$AudioStreamPlayer.stop()
+
+
 func load_from_file(path: String) -> void:
 	print("Loading " + path)
 	var sound_object
