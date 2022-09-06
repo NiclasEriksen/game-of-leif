@@ -28,6 +28,7 @@ onready var red_count_color_rect = $VBoxContainer/Split/GeneralContainer/Particl
 onready var green_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2/ColorRect
 onready var white_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3/ColorRect
 onready var blue_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4/ColorRect
+onready var viscosity_slider = $VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/ViscositySlider
 onready var save_rule_name_edit = $SavePanel/RuleNameEdit
 onready var import_string_edit = $ImportPanel/ImportStringEdit
 onready var export_string_edit = $ExportPanel/ExportStringEdit
@@ -59,6 +60,10 @@ func update_particle_count(color: int, value: int) -> void:
 func update_world_size(world_size: Vector2) -> void:
 	world_width_spinbox.value = world_size.x
 	world_height_spinbox.value = world_size.y
+
+
+func update_viscosity(val) -> void:
+	viscosity_slider.value = val
 
 
 func update_rules_container() -> void:

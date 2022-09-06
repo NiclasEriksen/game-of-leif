@@ -88,8 +88,8 @@ current = true
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="CanvasLayer2" instance=ExtResource( 7 )]
-margin_right = 19200.0
-margin_bottom = 10800.0
+margin_right = 23040.0
+margin_bottom = 12960.0
 
 [connection signal="mid_changed" from="AudioController" to="." method="_on_AudioController_mid_changed"]
 [connection signal="audio_file_selected" from="CanvasLayer2/GUI" to="." method="_on_GUI_audio_file_selected"]

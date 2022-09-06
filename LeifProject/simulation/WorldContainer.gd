@@ -146,6 +146,8 @@ func _exit_tree():
 
 func _on_AudioController_mid_changed(val):
 	glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
+	world.set_viscosity(0.75 - val * 0.5)
+	$CanvasLayer2/GUI.update_viscosity(0.75 - val * 0.5)
 
 
 ######### NEW GUI ############

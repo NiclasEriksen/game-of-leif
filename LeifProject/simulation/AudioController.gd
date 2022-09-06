@@ -6,11 +6,11 @@ const RULE_R_CHANGE := 20.0
 var cooldown := false
 var playing := false
 
-var AUDIO_STRENGTH := [0.0, 0.0, 0.0]
+var AUDIO_STRENGTH := [0.0, 0.0, 0.0, 0.0]
 var FREQ_RANGES := [
 	[0.0, 80.0],
-	[200.0, 400.0],
-	[1000.0, 6000.0]
+	[200.0, 800.0],
+	[4000.0, 44000.0]
 ]
 
 
@@ -34,7 +34,7 @@ func modify_random_rules() -> void:
 	var mid: float = AUDIO_STRENGTH[1]
 	var disk: float = AUDIO_STRENGTH[2]
 	if not cooldown:
-		if bass > 0.8:
+		if disk + bass > 1.25:
 			cooldown = true
 			RuleLoader.randomize_rules()
 			last_rules = RuleLoader.current_rules.duplicate(true)
@@ -49,7 +49,7 @@ func modify_random_rules() -> void:
 				400.0
 			))
 #		if disk > 0.75 and randf() > 0.66:
-		if disk > 0.80 and randf() > 0.66:
+		if bass > 0.80 and randf() > 0.66:
 			var cv: float = cr[i][2]
 			RuleLoader.modify_rule(i, 2, cv * -1)
 			last_rules[i][2] *= -1
@@ -58,21 +58,6 @@ func modify_random_rules() -> void:
 			RuleLoader.modify_rule(i, 2, (lv - lv / 2) + lv * disk)
 	
 	emit_signal("mid_changed", mid)
-#			else:	# g
-#				var higher: bool = R_DIRECTIONS[i]
-#				var v = a * RULE_G_CHANGE
-#				if cv + v > 30.0 and higher:
-#					higher = false
-#					R_DIRECTIONS[i] = true
-#				elif cv - v <= -30.0 and not higher:
-#					higher = true
-#					G_DIRECTIONS[i] = true
-#				var ratio := 1.0 - abs(cv) / 100.0
-#				if higher:
-#					cv += v * ratio * ratio * ratio
-#				else:
-#					cv -= v * ratio * ratio * ratio
-#				RuleLoader.modify_rule(i, 2, cv)
 
 
 func _process(_delta):

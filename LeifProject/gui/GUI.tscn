@@ -88,8 +88,8 @@ tracks/2/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 780.0
-margin_right = 15360.0
-margin_bottom = 9420.0
+margin_right = 17280.0
+margin_bottom = 10500.0
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 
