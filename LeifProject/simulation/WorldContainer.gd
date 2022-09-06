@@ -33,7 +33,6 @@ func _ready():
 	_reset_world()
 	running = false
 	var _c = RuleLoader.connect("current_rules_changed", self, "_on_current_rules_changed")
-	_c = RuleLoader.connect("current_rulename_changed", self, "_on_current_rulename_changed")
 
 	randomize()
 	spawn_all()
@@ -134,7 +133,7 @@ func _process(delta) -> void:
 		delta * 4.0
 	)
 
-func _on_current_rules_changed(new_rule_name: String) -> void:
+func _on_current_rules_changed(_new_rule_name: String) -> void:
 	$CanvasLayer2/GUI.update_rules_container()
 
 

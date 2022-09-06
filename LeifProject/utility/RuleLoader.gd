@@ -31,7 +31,6 @@ var music_rules: Array
 
 
 signal current_rules_changed(rule_name)
-signal current_rulename_changed(rule_name)
 
 
 func _ready() -> void:
@@ -74,7 +73,6 @@ func modify_rule(rule_index: int, value_index: int, value: float) -> void:
 	_rules[rule_index][value_index] = value
 	current_rules = _rules
 	current_rule_name = "<custom *>"
-	emit_signal("current_rulename_changed", current_rule_name)
 
 
 func add_new_rule_and_save(rule_name: String) -> void:
