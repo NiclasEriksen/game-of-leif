@@ -62,6 +62,8 @@ private:
     int PARTICLE_COUNT_WHITE = 1000;
     int PARTICLE_COUNT_BLUE = 1000;
 
+    float viscosity = 0.5;
+
     std::vector<LeifParticle *> red;
     std::vector<LeifParticle *> green;
     std::vector<LeifParticle *> white;
@@ -78,6 +80,7 @@ public:
 
     void _process(float delta);
 
+    void set_viscosity(float v);
     void _gather_particles();
     void _rule(std::vector<LeifParticle *> particles1, std::vector<LeifParticle *> particles2, float G, float radius, int p1_length, int p2_length);
     void rule(int p1name, int p2name, float G, float radius);

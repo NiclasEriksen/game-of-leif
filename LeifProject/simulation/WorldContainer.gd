@@ -120,8 +120,10 @@ func _run_rule(ruledef: Array) -> void:
 
 func _thread_process() -> void:
 	var cr: Array = RuleLoader.current_rules
-	for r in cr:
-		_run_rule(r)
+	for i in range(len(cr)):
+		if RuleLoader.inactive_rules[i]:
+			continue
+		_run_rule(cr[i])
 
 func _process(delta) -> void:
 	if running:
@@ -204,3 +206,7 @@ func _on_GUI_restart_world():
 func _on_GUI_preset_selected(name):
 	print(name)
 	RuleLoader.change_current_rules(name)
+
+
+func _on_GUI_viscosity_changed(value):
+	world.set_viscosity(value)

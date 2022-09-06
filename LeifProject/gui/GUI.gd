@@ -11,6 +11,7 @@ signal volume_changed(val)
 signal preset_selected(name)
 signal boundaries_enabled_toggle(value)
 signal world_size_changed(new_size)
+signal viscosity_changed(value)
 signal particle_count_applied(red, green, white, blue)
 
 # UI element paths
@@ -184,3 +185,6 @@ func _on_RuleContainer_attraction_updated(index, value):
 func _on_RuleContainer_range_updated(index: int, value: float):
 	RuleLoader.modify_rule(int(index), 3, value)
 
+
+func _on_ViscositySlider_value_changed(value):
+	emit_signal("viscosity_changed", value)

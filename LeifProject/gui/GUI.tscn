@@ -88,8 +88,8 @@ tracks/2/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 780.0
-margin_right = 13440.0
-margin_bottom = 8340.0
+margin_right = 15360.0
+margin_bottom = 9420.0
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 
@@ -359,6 +359,23 @@ step = 10.0
 value = 1080.0
 rounded = true
 suffix = "px"
+
+[node name="Label2" type="Label" parent="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer"]
+margin_top = 206.0
+margin_right = 167.0
+margin_bottom = 230.0
+text = "Viscosity"
+align = 1
+
+[node name="ViscositySlider" type="HSlider" parent="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer"]
+margin_top = 234.0
+margin_right = 167.0
+margin_bottom = 250.0
+max_value = 1.0
+step = 0.1
+value = 0.5
+tick_count = 3
+ticks_on_borders = true
 
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 831.0
@@ -640,6 +657,7 @@ filters = PoolStringArray( "*.mp3, *.ogg ; Audio files\"" )
 [connection signal="toggled" from="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/BoundariesButton" to="." method="_on_BoundariesButton_toggled"]
 [connection signal="value_changed" from="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/WorldSizeContainer/WorldWidthContainer/WorldWidthSpinbox" to="." method="_on_WorldWidthSpinbox_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/WorldSizeContainer/WorldHeightContainer/WorldHeightSpinbox" to="." method="_on_WorldHeightSpinbox_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/ViscositySlider" to="." method="_on_ViscositySlider_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/CountApplyButton" to="." method="_on_CountApplyButton_pressed"]
 [connection signal="attraction_updated" from="VBoxContainer/Split/RuleContainer" to="." method="_on_RuleContainer_attraction_updated"]
 [connection signal="range_updated" from="VBoxContainer/Split/RuleContainer" to="." method="_on_RuleContainer_range_updated"]

@@ -26,6 +26,14 @@ var rules := {
 		[BLUE, GREEN, -5.5, 103]
 	]
 }
+
+var inactive_rules = [
+	false, false, false, false,
+	false, false, false, false,
+	false, false, false, false,
+	false, false, false, false,
+]
+
 onready var current_rules: Array = rules[current_rule_name].duplicate(true)
 var music_rules: Array
 
@@ -45,7 +53,8 @@ func _reset_settings() -> void:
 
 func randomize_rules() -> void:
 	var _rules = current_rules
-	for r in _rules:
+	for i in range(len(_rules)):
+		var r: Array = _rules[i]
 		if randf() < 0.1:
 			r[2] = 0.0
 		else:
@@ -54,6 +63,14 @@ func randomize_rules() -> void:
 			if randf() > 0.5:
 				r[2] *= -1
 		r[3] = randf() * randf() * 400
+
+		if abs(r[2]) < 0.1 || r[3] < 5.0:
+			r[2] = 0.0
+			r[3] = 0.0
+			inactive_rules[i] = true
+		else:
+			inactive_rules[i] = false
+
 	current_rules = _rules
 	current_rule_name = "<custom *>"
 	emit_signal("current_rules_changed", current_rule_name)
