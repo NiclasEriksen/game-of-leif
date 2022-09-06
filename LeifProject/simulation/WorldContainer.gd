@@ -1,5 +1,6 @@
 extends Node2D
 
+const BASE_SIZE = Vector2(1920, 1080)
 export(Vector2) var WORLD_SIZE = Vector2(1670, 1080)
 export(Vector2) var WORLD_OFFSET = Vector2(250, 0)
 
@@ -17,6 +18,7 @@ var GREEN := Globals.GREEN
 var WHITE := Globals.WHITE
 var BLUE := Globals.BLUE
 
+var boundaries_enabled = true
 
 var RED_PARTICLE_COUNT := 900
 var GREEN_PARTICLE_COUNT := 900
@@ -32,11 +34,17 @@ func _ready():
 	running = false
 	var _c = RuleLoader.connect("current_rules_changed", self, "_on_current_rules_changed")
 	_c = RuleLoader.connect("current_rulename_changed", self, "_on_current_rulename_changed")
-	_populate_load_menu()
+
 	randomize()
 	spawn_all()
 	RuleLoader._reset_settings()
 	_on_current_rules_changed(RuleLoader.current_rule_name)
+	
+	$CanvasLayer2/GUI.update_particle_count(Globals.RED, RED_PARTICLE_COUNT)
+	$CanvasLayer2/GUI.update_particle_count(Globals.GREEN, GREEN_PARTICLE_COUNT)
+	$CanvasLayer2/GUI.update_particle_count(Globals.WHITE, WHITE_PARTICLE_COUNT)
+	$CanvasLayer2/GUI.update_particle_count(Globals.BLUE, BLUE_PARTICLE_COUNT)
+	$CanvasLayer2/GUI.update_world_size(WORLD_SIZE)
 
 func clear_all() -> void:
 	for n in get_tree().get_nodes_in_group("red"):
@@ -97,8 +105,12 @@ func _reset_world() -> void:
 	if world != null:
 		world.free()
 	world = WORLD_SCENE.instance()
-	add_child(world)
-	world.BOUNDS_TYPE = Globals.BOUNDS_STRICT
+	$Control/ViewportContainer/WorldViewport.add_child(world)
+	if boundaries_enabled:
+		world.BOUNDS_TYPE = Globals.BOUNDS_STRICT
+	else:
+		world.BOUNDS_TYPE = Globals.BOUNDS_DISABLED
+		
 	world.WORLD_SIZE = WORLD_SIZE
 	world.set_position(WORLD_OFFSET)
 
@@ -113,111 +125,83 @@ func _thread_process() -> void:
 		_run_rule(r)
 
 func _process(delta) -> void:
-	$CanvasLayer/Control/FPSLabel.text = "FPS: " + str(Engine.get_frames_per_second())
 	if running:
 		_thread_process()
-	$WorldEnvironment.environment.glow_intensity = lerp(
-		$WorldEnvironment.environment.glow_intensity,
+
+	$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity = lerp(
+		$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity,
 		glow_intensity,
 		delta * 4.0
 	)
 
-func _populate_load_menu() -> void:
-	var r = RuleLoader.rules
-	$CanvasLayer/LoadMenu.clear()
-
-	for name in r:
-		$CanvasLayer/LoadMenu.add_item(name)
-
-
-func _on_RuleContainer_attraction_updated(index: int, value: float):
-	RuleLoader.modify_rule(int(index), 2, value)
-
-
-func _on_RuleContainer_range_updated(index: int, value: float):
-	RuleLoader.modify_rule(int(index), 3, value)
-
 func _on_current_rules_changed(new_rule_name: String) -> void:
-	$CanvasLayer/Control/RuleInfoContainer2/RuleNameLabel.text = new_rule_name
-	$CanvasLayer/Control/RuleContainer.build(RuleLoader.current_rules)
-	_populate_load_menu()
+	$CanvasLayer2/GUI.update_rules_container()
 
-func _on_current_rulename_changed(new_rule_name: String) -> void:
-	$CanvasLayer/Control/RuleInfoContainer2/RuleNameLabel.text = new_rule_name
-
-
-func _on_RandomButton_pressed():
-	RuleLoader.randomize_rules()
-
-
-func _on_SaveButton_pressed():
-	$CanvasLayer/SavePanel/RuleNameEdit.text = RuleLoader.current_rule_name
-	$CanvasLayer/SavePanel.popup(Rect2(40, 40, 350, 75))
-	$CanvasLayer/SavePanel/RuleNameEdit.grab_focus()
-	$CanvasLayer/SavePanel/RuleNameEdit.select_all()
-
-
-func _on_SavePanel_confirmed():
-	var new_name: String = $CanvasLayer/SavePanel/RuleNameEdit.text
-	RuleLoader.add_new_rule_and_save(new_name)
-	_populate_load_menu()
-
-
-func _on_RestartButton_pressed():
-	restart_simulation()
-
-
-func _on_LoadButton_pressed():
-	$CanvasLayer/LoadMenu.popup(Rect2(40, 40, 250, 200))
-	$CanvasLayer/LoadMenu.grab_focus()
-
-
-func _on_LoadMenu_id_pressed(id):
-	var n = $CanvasLayer/LoadMenu.get_item_text(id)
-	RuleLoader.change_current_rules(n)
-
-
-func _on_ExportButton_pressed():
-	var s := RuleLoader.generate_rule_string()
-	$CanvasLayer/ExportPanel/ExportStringEdit.text = s
-	$CanvasLayer/ExportPanel.popup(Rect2(40, 40, 350, 75))
-	$CanvasLayer/ExportPanel/ExportStringEdit.grab_focus()
-	$CanvasLayer/ExportPanel/ExportStringEdit.select_all()
-
-
-func _on_ImportButton_pressed():
-	$CanvasLayer/ImportPanel.popup(Rect2(40, 40, 350, 75))
-	$CanvasLayer/ImportPanel/ImportStringEdit.grab_focus()
-	$CanvasLayer/ImportPanel/ImportStringEdit.select_all()
-
-
-func _on_ImportPanel_confirmed():
-	var s = $CanvasLayer/ImportPanel/ImportStringEdit.text.strip_edges()
-	RuleLoader.import_rule_string(s)
-
-
-func _on_FullscreenButton_pressed():
-	OS.window_fullscreen = !OS.window_fullscreen
 
 func _exit_tree():
 	running = false
 	RuleLoader._reset_settings()
 
-func _on_QuitButton2_pressed():
+
+func _on_AudioController_mid_changed(val):
+	glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
+
+
+######### NEW GUI ############
+
+
+func _on_GUI_audio_file_selected(path):
+	$AudioPlayer.load_from_file(path)
+	$AudioController.playing = true
+
+
+func _on_GUI_music_stop():
+	$AudioController.playing = false
+	$AudioPlayer.stop()
+
+
+func _on_GUI_volume_changed(val):
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), linear2db(val))
+
+
+func _on_GUI_quit():
 	print("Quitting")
 	running = false
 	RuleLoader.save_data()
 	get_tree().quit()
 
 
-func _on_OpenAudioFileDialog_file_selected(path):
-	$AudioPlayer.load_from_file(path)
-	$AudioController.playing = true
+func _on_GUI_particle_count_applied(red: int, green: int, white: int, blue: int):
+	RED_PARTICLE_COUNT = red
+	GREEN_PARTICLE_COUNT = green
+	WHITE_PARTICLE_COUNT = white
+	BLUE_PARTICLE_COUNT = blue
+	restart_simulation()
 
 
-func _on_MusicButton_pressed():
-	$CanvasLayer/OpenAudioFileDialog.popup_centered(Vector2(500, 500))
+func _on_GUI_boundaries_enabled_toggle(value: bool):
+	boundaries_enabled = value
+	if value:
+		world.BOUNDS_TYPE = Globals.BOUNDS_STRICT
+	else:
+		world.BOUNDS_TYPE = Globals.BOUNDS_DISABLED
 
 
-func _on_AudioController_mid_changed(val):
-	glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
+func _on_GUI_world_size_changed(new_size: Vector2):
+	WORLD_SIZE = new_size
+	WORLD_OFFSET = (BASE_SIZE - WORLD_SIZE) / 2
+	world.WORLD_SIZE = WORLD_SIZE
+	world.transform.origin = WORLD_OFFSET
+
+
+func _on_GUI_randomize_rules():
+	RuleLoader.randomize_rules()
+
+
+func _on_GUI_restart_world():
+	restart_simulation()
+
+
+func _on_GUI_preset_selected(name):
+	print(name)
+	RuleLoader.change_current_rules(name)

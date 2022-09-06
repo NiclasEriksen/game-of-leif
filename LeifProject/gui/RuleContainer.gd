@@ -1,4 +1,4 @@
-extends VBoxContainer
+extends GridContainer
 
 onready var RULEBOX_SCENE = load("res://gui/RuleBox.tscn")
 
