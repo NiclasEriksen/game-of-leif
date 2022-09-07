@@ -36,6 +36,7 @@ onready var export_string_edit = $ExportPanel/ExportStringEdit
 
 
 func _ready() -> void:
+	rect_size = Vector2(0, 0)
 	red_count_color_rect.color = Globals.RED_COLOR
 	green_count_color_rect.color = Globals.GREEN_COLOR
 	white_count_color_rect.color = Globals.WHITE_COLOR

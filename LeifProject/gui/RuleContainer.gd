@@ -1,6 +1,6 @@
 extends GridContainer
 
-onready var RULEBOX_SCENE = load("res://gui/RuleBox.tscn")
+onready var RULEBOX_SCENE = preload("res://gui/RuleBox.tscn")
 
 signal attraction_updated(index, value)
 signal range_updated(index, value)

@@ -8,8 +8,6 @@ onready var PARTICLE_SCENE = preload("res://simulation/LeifParticle.tscn")
 onready var WORLD_SCENE = preload("res://simulation/LeifWorld.tscn")
 var world: Node2D
 
-var parallelThreads := []
-
 const BASE_GLOW_INTENSITY = 0.5
 var glow_intensity: float = BASE_GLOW_INTENSITY
 
@@ -126,25 +124,21 @@ func _process(delta) -> void:
 	if running:
 		_thread_process()
 
-	$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity = lerp(
-		$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity,
-		glow_intensity,
-		delta * 4.0
-	)
+		$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity = lerp(
+			$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity,
+			glow_intensity,
+			delta * 4.0
+		)
 
 func _on_current_rules_changed(_new_rule_name: String) -> void:
 	$CanvasLayer2/GUI.update_rules_container()
 
 
-func _exit_tree():
-	running = false
-	RuleLoader._reset_settings()
-
-
 func _on_AudioController_mid_changed(val):
-	glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
-	world.set_viscosity(0.75 - val * 0.5)
-	$CanvasLayer2/GUI.update_viscosity(0.75 - val * 0.5)
+	if running:
+		glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
+		world.set_viscosity(0.75 - val * 0.5)
+		$CanvasLayer2/GUI.update_viscosity(0.75 - val * 0.5)
 
 
 ######### NEW GUI ############
@@ -167,7 +161,12 @@ func _on_GUI_volume_changed(val):
 func _on_GUI_quit():
 	print("Quitting")
 	running = false
-	RuleLoader.save_data()
+#	RuleLoader.save_data()
+	$AudioController.playing = false
+	$AudioController.queue_free()
+	$AudioPlayer.queue_free()
+	$CanvasLayer2.queue_free()
+	$Control.queue_free()
 	get_tree().quit()
 
 

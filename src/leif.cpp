@@ -156,7 +156,6 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
     const float g = G / -100;
 
     omp_set_num_threads(4);
-    omp_set_nested(true);
     #pragma omp parallel for
     for (int i = 0; i < p1_length; i++) {
         LeifParticle* p1 = particles1[i];
