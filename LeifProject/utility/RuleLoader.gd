@@ -108,39 +108,107 @@ func change_current_rules(name: String) -> void:
 		print("NAME NOT IN RULES")
 
 
-func generate_rule_string() -> String:
+func generate_rule_string(rules_arr: Array) -> String:
 	var s := ""
-	for rule in current_rules:
-		s += str(rule[0]) + ","
-		s += str(rule[1]) + ","
-		s += "%.2f," % rule[2]
-		s += "%.2f;" % rule[3]
+	for rule in rules_arr:
+		s += "%.2f " % rule[2]
+		s += "%.2f " % rule[3]
+	s += str(Globals.RED_PARTICLE_COUNT) + " "
+	s += str(Globals.GREEN_PARTICLE_COUNT) + " "
+	s += str(Globals.WHITE_PARTICLE_COUNT) + " "
+	s += str(Globals.BLUE_PARTICLE_COUNT) + " "
+	s += str(Globals.VISCOSITY)
 	return s
 
-
-func import_rule_string(s: String) -> void:
+func convert_old_rule_string(s: String) -> String:
 	var rules_arr = []
 	var rules_str: Array = s.split(";")
 	if rules_str[-1].strip_edges() == "":
 		rules_str.pop_back()
-	if not len(rules_str) == len(current_rules):
-		print("Invalid number of rules in rule string!")
-		return
 	for r_str in rules_str:
 		if not r_str.countn(",") == 3:
 			print("Invalid rule string!")
-			return
+			return ""
 		var r_str_arr: Array = r_str.split(",")
 		if r_str_arr[-1].strip_edges() == "":
 			r_str_arr.pop_back()
 		if not len(r_str_arr) == 4:
 			print("Invalid number of parameters for rule in string!")
+			return ""
 		rules_arr.append([
 			int(r_str_arr[0]),
 			int(r_str_arr[1]),
 			float(r_str_arr[2]),
 			float(r_str_arr[3]),
 		])
+	return generate_rule_string(rules_arr)
+
+
+func import_rule_string(s: String) -> void:
+	if s.countn(";") > 0:
+		print("Probably old rule string, converting.")
+		s = convert_old_rule_string(s)
+	var rules_arr = []
+	var rules_str: Array = s.split(" ")
+	if rules_str[-1].strip_edges() == "":
+		rules_str.pop_back()
+	if not len(rules_str) == 37:
+		print("Invalid number of rules in rule string!")
+		return
+
+	rules_arr.append([
+		1, 1, float(rules_str[0]), float(rules_str[4])
+	])
+	rules_arr.append([
+		1, 0, float(rules_str[1]), float(rules_str[5])
+	])
+	rules_arr.append([
+		1, 2, float(rules_str[2]), float(rules_str[6])
+	])
+	rules_arr.append([
+		1, 3, float(rules_str[3]), float(rules_str[7])
+	])
+	rules_arr.append([
+		0, 1, float(rules_str[8]), float(rules_str[12])
+	])
+	rules_arr.append([
+		0, 1, float(rules_str[9]), float(rules_str[13])
+	])
+	rules_arr.append([
+		0, 2, float(rules_str[10]), float(rules_str[14])
+	])
+	rules_arr.append([
+		0, 3, float(rules_str[11]), float(rules_str[15])
+	])
+	rules_arr.append([
+		2, 1, float(rules_str[16]), float(rules_str[20])
+	])
+	rules_arr.append([
+		2, 0, float(rules_str[17]), float(rules_str[21])
+	])
+	rules_arr.append([
+		2, 2, float(rules_str[18]), float(rules_str[22])
+	])
+	rules_arr.append([
+		2, 3, float(rules_str[19]), float(rules_str[23])
+	])
+	rules_arr.append([
+		3, 1, float(rules_str[24]), float(rules_str[28])
+	])
+	rules_arr.append([
+		3, 0, float(rules_str[25]), float(rules_str[29])
+	])
+	rules_arr.append([
+		3, 2, float(rules_str[26]), float(rules_str[30])
+	])
+	rules_arr.append([
+		3, 3, float(rules_str[27]), float(rules_str[31])
+	])
+	var count_green: int = int(rules_str[32])
+	var count_red: int = int(rules_str[33])
+	var count_white: int = int(rules_str[34])
+	var count_blue: int = int(rules_str[35])
+	var viscosity: float = float(rules_str[36])
 	
 	print("Parsing of rules string successful, applying...")
 

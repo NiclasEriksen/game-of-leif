@@ -17,11 +17,6 @@ var BLUE := Globals.BLUE
 
 var boundaries_type = Globals.BOUNDS_STRICT
 
-var RED_PARTICLE_COUNT := 900
-var GREEN_PARTICLE_COUNT := 900
-var WHITE_PARTICLE_COUNT := 900
-var BLUE_PARTICLE_COUNT := 900
-
 var running := false
 var mouse_pressed := false
 
@@ -38,10 +33,10 @@ func _ready():
 	RuleLoader._reset_settings()
 	_on_current_rules_changed(RuleLoader.current_rule_name)
 	
-	$CanvasLayer2/GUI.update_particle_count(Globals.RED, RED_PARTICLE_COUNT)
-	$CanvasLayer2/GUI.update_particle_count(Globals.GREEN, GREEN_PARTICLE_COUNT)
-	$CanvasLayer2/GUI.update_particle_count(Globals.WHITE, WHITE_PARTICLE_COUNT)
-	$CanvasLayer2/GUI.update_particle_count(Globals.BLUE, BLUE_PARTICLE_COUNT)
+	$CanvasLayer2/GUI.update_particle_count(Globals.RED, Globals.RED_PARTICLE_COUNT)
+	$CanvasLayer2/GUI.update_particle_count(Globals.GREEN, Globals.GREEN_PARTICLE_COUNT)
+	$CanvasLayer2/GUI.update_particle_count(Globals.WHITE, Globals.WHITE_PARTICLE_COUNT)
+	$CanvasLayer2/GUI.update_particle_count(Globals.BLUE, Globals.BLUE_PARTICLE_COUNT)
 	$CanvasLayer2/GUI.update_world_size(WORLD_SIZE)
 
 func clear_all() -> void:
@@ -57,28 +52,28 @@ func clear_all() -> void:
 
 func spawn_all() -> void:
 	running = false
-	for _i in range(RED_PARTICLE_COUNT):
+	for _i in range(Globals.RED_PARTICLE_COUNT):
 		var p := Vector2(world.WORLD_SIZE.x * randf(), world.WORLD_SIZE.y * randf())
 		var ps: Sprite = PARTICLE_SCENE.instance()
 		ps.position = p
 		ps.modulate = Globals.RED_COLOR
 		ps.add_to_group("red")
 		world.add_child(ps)
-	for _i in range(GREEN_PARTICLE_COUNT):
+	for _i in range(Globals.GREEN_PARTICLE_COUNT):
 		var p := Vector2(world.WORLD_SIZE.x * randf(), world.WORLD_SIZE.y * randf())
 		var ps: Sprite = PARTICLE_SCENE.instance()
 		ps.position = p
 		ps.modulate = Globals.GREEN_COLOR
 		ps.add_to_group("green")
 		world.add_child(ps)
-	for _i in range(WHITE_PARTICLE_COUNT):
+	for _i in range(Globals.WHITE_PARTICLE_COUNT):
 		var p := Vector2(world.WORLD_SIZE.x * randf(), world.WORLD_SIZE.y * randf())
 		var ps: Sprite = PARTICLE_SCENE.instance()
 		ps.position = p
 		ps.modulate = Globals.WHITE_COLOR
 		ps.add_to_group("white")
 		world.add_child(ps)
-	for _i in range(BLUE_PARTICLE_COUNT):
+	for _i in range(Globals.BLUE_PARTICLE_COUNT):
 		var p := Vector2(world.WORLD_SIZE.x * randf(), world.WORLD_SIZE.y * randf())
 		var ps: Sprite = PARTICLE_SCENE.instance()
 		ps.position = p
@@ -138,8 +133,9 @@ func _on_current_rules_changed(_new_rule_name: String) -> void:
 func _on_AudioController_mid_changed(val):
 	if running:
 		glow_intensity = ProjectSettings.get_setting("global/glow_amount") + val
-		world.set_viscosity(0.75 - val * 0.5)
-		$CanvasLayer2/GUI.update_viscosity(0.75 - val * 0.5)
+		Globals.VISCOSITY = 0.75 - val * 0.5
+		world.set_viscosity(Globals.VISCOSITY)
+		$CanvasLayer2/GUI.update_viscosity(Globals.VISCOSITY)
 		
 func _on_AudioController_bass_changed(val):
 	if running:
@@ -203,10 +199,10 @@ func _on_GUI_quit():
 
 
 func _on_GUI_particle_count_applied(red: int, green: int, white: int, blue: int):
-	RED_PARTICLE_COUNT = red
-	GREEN_PARTICLE_COUNT = green
-	WHITE_PARTICLE_COUNT = white
-	BLUE_PARTICLE_COUNT = blue
+	Globals.RED_PARTICLE_COUNT = red
+	Globals.GREEN_PARTICLE_COUNT = green
+	Globals.WHITE_PARTICLE_COUNT = white
+	Globals.BLUE_PARTICLE_COUNT = blue
 	restart_simulation()
 
 
@@ -230,7 +226,8 @@ func _on_GUI_preset_selected(name):
 
 
 func _on_GUI_viscosity_changed(value):
-	world.set_viscosity(value)
+	Globals.VISCOSITY = value
+	world.set_viscosity(Globals.VISCOSITY)
 
 
 func _on_GUI_boundaries_changed(new_val):

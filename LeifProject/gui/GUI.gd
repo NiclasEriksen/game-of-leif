@@ -181,7 +181,7 @@ func _on_ImportButton_pressed():
 
 
 func _on_ExportButton_pressed():
-	var s := RuleLoader.generate_rule_string()
+	var s := RuleLoader.generate_rule_string(RuleLoader.current_rules)
 	export_string_edit.text = s
 	$ExportPanel.popup(Rect2(300, 700, 350, 75))
 	export_string_edit.grab_focus()
