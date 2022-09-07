@@ -110,7 +110,10 @@ func change_current_rules(name: String) -> void:
 
 func generate_rule_string(rules_arr: Array) -> String:
 	var s := ""
-	for rule in rules_arr:
+	var rules_arr_new = [
+		rules_arr[1], rules_arr[0], rules_arr[2], rules_arr[3]
+	]
+	for rule in rules_arr_new:
 		s += "%.2f " % rule[2]
 		s += "%.2f " % rule[3]
 	s += str(Globals.RED_PARTICLE_COUNT) + " "
