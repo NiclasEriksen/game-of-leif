@@ -1,6 +1,7 @@
-[gd_resource type="Theme" load_steps=9 format=2]
+[gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://assets/Overpass-Medium.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://gui/UIfont.tres" type="DynamicFont" id=2]
 
 [sub_resource type="StyleBoxFlat" id=6]
 content_margin_left = 8.0
@@ -47,10 +48,6 @@ corner_radius_top_right = 5
 corner_radius_bottom_right = 5
 corner_radius_bottom_left = 5
 
-[sub_resource type="DynamicFont" id=3]
-extra_spacing_top = 2
-font_data = ExtResource( 1 )
-
 [sub_resource type="StyleBoxFlat" id=8]
 bg_color = Color( 0.0901961, 0.0901961, 0.0901961, 0.576471 )
 
@@ -81,13 +78,17 @@ expand_margin_top = 24.0
 shadow_color = Color( 0, 0, 0, 0.556863 )
 shadow_size = 16
 
+[sub_resource type="DynamicFont" id=3]
+extra_spacing_top = 2
+font_data = ExtResource( 1 )
+
 [resource]
 default_font = SubResource( 3 )
 Button/styles/focus = SubResource( 6 )
 Button/styles/hover = SubResource( 5 )
 Button/styles/normal = SubResource( 6 )
 Button/styles/pressed = SubResource( 7 )
-Label/fonts/font = SubResource( 3 )
+Label/fonts/font = ExtResource( 2 )
 Panel/styles/panel = SubResource( 8 )
 PopupMenu/colors/font_color = Color( 0.88, 0.88, 0.88, 1 )
 PopupMenu/colors/font_color_accel = Color( 0.7, 0.7, 0.7, 0.8 )

@@ -6,9 +6,6 @@
 #include <SceneTree.hpp>
 #include <String.hpp>
 #include <omp.h>
-#include <RID.hpp>
-#include <VisualServer.hpp>
-#include <Transform2D.hpp>
 #include <vector>
 
 const int RED = 0;
@@ -17,6 +14,7 @@ const int WHITE = 2;
 const int BLUE = 3;
 const int BOUNDS_DISABLED = 0;
 const int BOUNDS_STRICT = 1;
+const int BOUNDS_REPEATING = 2;
 
 typedef wchar_t CharType;
 
@@ -55,7 +53,6 @@ class LeifWorld : public Node2D {
 private:
     Vector2 WORLD_SIZE = Vector2(750, 750);
 
-    int BOUNDS_TYPE = BOUNDS_STRICT;
 
     int PARTICLE_COUNT_RED = 1000;
     int PARTICLE_COUNT_GREEN = 1000;
@@ -80,7 +77,8 @@ public:
 
     void _process(float delta);
 
-    void set_viscosity(float v);
+    int BOUNDS_TYPE = BOUNDS_STRICT;
+    void set_viscosity(float val);
     void _gather_particles();
     void _rule(std::vector<LeifParticle *> particles1, std::vector<LeifParticle *> particles2, float G, float radius, int p1_length, int p2_length);
     void rule(int p1name, int p2name, float G, float radius);

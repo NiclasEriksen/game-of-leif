@@ -33,6 +33,12 @@ script = ExtResource( 1 )
 WORLD_SIZE = Vector2( 1920, 1080 )
 WORLD_OFFSET = Vector2( 0, 0 )
 
+[node name="CanvasLayer2" type="CanvasLayer" parent="."]
+
+[node name="GUI" parent="CanvasLayer2" instance=ExtResource( 7 )]
+margin_right = -1920.0
+margin_bottom = -300.0
+
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -85,15 +91,8 @@ current = true
 
 [node name="AudioController" parent="." instance=ExtResource( 6 )]
 
-[node name="CanvasLayer2" type="CanvasLayer" parent="."]
-
-[node name="GUI" parent="CanvasLayer2" instance=ExtResource( 7 )]
-margin_right = 23040.0
-margin_bottom = 12960.0
-
-[connection signal="mid_changed" from="AudioController" to="." method="_on_AudioController_mid_changed"]
 [connection signal="audio_file_selected" from="CanvasLayer2/GUI" to="." method="_on_GUI_audio_file_selected"]
-[connection signal="boundaries_enabled_toggle" from="CanvasLayer2/GUI" to="." method="_on_GUI_boundaries_enabled_toggle"]
+[connection signal="boundaries_changed" from="CanvasLayer2/GUI" to="." method="_on_GUI_boundaries_changed"]
 [connection signal="music_stop" from="CanvasLayer2/GUI" to="." method="_on_GUI_music_stop"]
 [connection signal="particle_count_applied" from="CanvasLayer2/GUI" to="." method="_on_GUI_particle_count_applied"]
 [connection signal="preset_selected" from="CanvasLayer2/GUI" to="." method="_on_GUI_preset_selected"]
@@ -103,3 +102,4 @@ margin_bottom = 12960.0
 [connection signal="viscosity_changed" from="CanvasLayer2/GUI" to="." method="_on_GUI_viscosity_changed"]
 [connection signal="volume_changed" from="CanvasLayer2/GUI" to="." method="_on_GUI_volume_changed"]
 [connection signal="world_size_changed" from="CanvasLayer2/GUI" to="." method="_on_GUI_world_size_changed"]
+[connection signal="mid_changed" from="AudioController" to="." method="_on_AudioController_mid_changed"]

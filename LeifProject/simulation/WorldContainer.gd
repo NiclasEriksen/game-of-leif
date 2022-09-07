@@ -8,8 +8,6 @@ onready var PARTICLE_SCENE = preload("res://simulation/LeifParticle.tscn")
 onready var WORLD_SCENE = preload("res://simulation/LeifWorld.tscn")
 var world: Node2D
 
-var parallelThreads := []
-
 const BASE_GLOW_INTENSITY = 0.5
 var glow_intensity: float = BASE_GLOW_INTENSITY
 
@@ -18,7 +16,7 @@ var GREEN := Globals.GREEN
 var WHITE := Globals.WHITE
 var BLUE := Globals.BLUE
 
-var boundaries_enabled = true
+var boundaries_type = Globals.BOUNDS_STRICT
 
 var RED_PARTICLE_COUNT := 900
 var GREEN_PARTICLE_COUNT := 900
@@ -105,10 +103,7 @@ func _reset_world() -> void:
 		world.free()
 	world = WORLD_SCENE.instance()
 	$Control/ViewportContainer/WorldViewport.add_child(world)
-	if boundaries_enabled:
-		world.BOUNDS_TYPE = Globals.BOUNDS_STRICT
-	else:
-		world.BOUNDS_TYPE = Globals.BOUNDS_DISABLED
+	world.BOUNDS_TYPE = boundaries_type
 		
 	world.WORLD_SIZE = WORLD_SIZE
 	world.set_position(WORLD_OFFSET)
@@ -129,25 +124,21 @@ func _process(delta) -> void:
 	if running:
 		_thread_process()
 
-	$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity = lerp(
-		$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity,
-		glow_intensity,
-		delta * 4.0
-	)
+		$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity = lerp(
+			$Control/ViewportContainer/WorldViewport.world.environment.glow_intensity,
+			glow_intensity,
+			delta * 4.0
+		)
 
 func _on_current_rules_changed(_new_rule_name: String) -> void:
 	$CanvasLayer2/GUI.update_rules_container()
 
 
-func _exit_tree():
-	running = false
-	RuleLoader._reset_settings()
-
-
 func _on_AudioController_mid_changed(val):
-	glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
-	world.set_viscosity(0.75 - val * 0.5)
-	$CanvasLayer2/GUI.update_viscosity(0.75 - val * 0.5)
+	if running:
+		glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
+		world.set_viscosity(0.75 - val * 0.5)
+		$CanvasLayer2/GUI.update_viscosity(0.75 - val * 0.5)
 
 
 ######### NEW GUI ############
@@ -171,7 +162,12 @@ func _on_GUI_quit():
 	print("Quitting")
 	running = false
 	RuleLoader.save_data()
-	get_tree().quit()
+	$AudioController.playing = false
+	for c in get_children():
+		c.queue_free()
+	yield(get_tree().create_timer(0.5),"timeout")
+	get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
+	OS.call_deferred("kill", OS.get_process_id())
 
 
 func _on_GUI_particle_count_applied(red: int, green: int, white: int, blue: int):
@@ -180,14 +176,6 @@ func _on_GUI_particle_count_applied(red: int, green: int, white: int, blue: int)
 	WHITE_PARTICLE_COUNT = white
 	BLUE_PARTICLE_COUNT = blue
 	restart_simulation()
-
-
-func _on_GUI_boundaries_enabled_toggle(value: bool):
-	boundaries_enabled = value
-	if value:
-		world.BOUNDS_TYPE = Globals.BOUNDS_STRICT
-	else:
-		world.BOUNDS_TYPE = Globals.BOUNDS_DISABLED
 
 
 func _on_GUI_world_size_changed(new_size: Vector2):
@@ -206,9 +194,13 @@ func _on_GUI_restart_world():
 
 
 func _on_GUI_preset_selected(name):
-	print(name)
 	RuleLoader.change_current_rules(name)
 
 
 func _on_GUI_viscosity_changed(value):
 	world.set_viscosity(value)
+
+
+func _on_GUI_boundaries_changed(new_val):
+	boundaries_type = new_val
+	world.BOUNDS_TYPE = new_val
