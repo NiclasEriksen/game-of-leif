@@ -161,13 +161,13 @@ func _on_GUI_volume_changed(val):
 func _on_GUI_quit():
 	print("Quitting")
 	running = false
-#	RuleLoader.save_data()
+	RuleLoader.save_data()
 	$AudioController.playing = false
-	$AudioController.queue_free()
-	$AudioPlayer.queue_free()
-	$CanvasLayer2.queue_free()
-	$Control.queue_free()
-	get_tree().quit()
+	for c in get_children():
+		c.queue_free()
+	yield(get_tree().create_timer(0.5),"timeout")
+	get_tree().notification(MainLoop.NOTIFICATION_WM_QUIT_REQUEST)
+	OS.call_deferred("kill", OS.get_process_id())
 
 
 func _on_GUI_particle_count_applied(red: int, green: int, white: int, blue: int):
