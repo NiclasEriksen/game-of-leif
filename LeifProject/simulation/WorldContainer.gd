@@ -24,6 +24,8 @@ var WHITE_PARTICLE_COUNT := 900
 var BLUE_PARTICLE_COUNT := 900
 
 var running := false
+var mouse_pressed := false
+
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -226,3 +228,17 @@ func _on_GUI_color_changed(color_id: int, new_color: Color):
 				n.modulate = Globals.BLUE_COLOR
 		_:
 			pass
+
+
+func _on_ViewportContainer_gui_input(event: InputEvent):
+	if event.is_action_pressed("zoom_in"):
+		$Control/ViewportContainer/WorldViewport/Camera2D.zoom -= Vector2(0.1, 0.1)
+	elif event.is_action_pressed("zoom_out"):
+		$Control/ViewportContainer/WorldViewport/Camera2D.zoom += Vector2(0.1, 0.1)
+	if event is InputEventMouseMotion and mouse_pressed:
+		$Control/ViewportContainer/WorldViewport/Camera2D.offset -= event.relative * $Control/ViewportContainer/WorldViewport/Camera2D.zoom
+	if event is InputEventMouseButton and event.button_index == BUTTON_MASK_LEFT:
+		mouse_pressed = event.pressed
+	elif event is InputEventMouseButton and event.button_index == BUTTON_MASK_RIGHT and event.pressed:
+		$Control/ViewportContainer/WorldViewport/Camera2D.zoom = Vector2.ONE
+		$Control/ViewportContainer/WorldViewport/Camera2D.offset = Vector2.ZERO
