@@ -220,7 +220,7 @@ void LeifWorld::_rule(std::vector<LeifParticle *> particles1, std::vector<LeifPa
             else if (p1pos.y < 0 && p1vel.y < 0) { p1vel.y *= -1; p1->set_pos_y(0); }
         } else if (BOUNDS_TYPE == BOUNDS_REPEATING) {
             if ((p1pos.x - WORLD_SIZE.x) > 0) { p1->set_pos_x(p1pos.x - WORLD_SIZE.x);} 
-            else if (p1pos.x < 0) { p1->set_pos_x(WORLD_SIZE.y + p1pos.x); }
+            else if (p1pos.x < 0) { p1->set_pos_x(WORLD_SIZE.x + p1pos.x); }
             else if ((p1pos.y - WORLD_SIZE.y) > 0) { p1->set_pos_y(p1pos.y - WORLD_SIZE.y);} 
             else if (p1pos.y < 0) { p1->set_pos_y(WORLD_SIZE.y + p1pos.y); }
         }
