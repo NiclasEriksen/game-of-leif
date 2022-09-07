@@ -74,4 +74,4 @@ I will add a brief description later of how to build the libraries for running t
 - Separate processing into own thread
 - ~~Show/hide toggle for GUI~~
 - Graphics settings
-- Pan and zoom
+- ~~Pan and zoom~~
