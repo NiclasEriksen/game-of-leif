@@ -8,9 +8,7 @@ onready var PARTICLE_SCENE = preload("res://simulation/LeifParticle.tscn")
 onready var WORLD_SCENE = preload("res://simulation/LeifWorld.tscn")
 var world: Node2D
 
-const BASE_GLOW_INTENSITY = 0.5
-const COLOR_SHIFT_RATE = 0.001
-var glow_intensity: float = BASE_GLOW_INTENSITY
+var glow_intensity: float = ProjectSettings.get_setting("global/glow_amount")
 
 var RED := Globals.RED
 var GREEN := Globals.GREEN
@@ -139,16 +137,18 @@ func _on_current_rules_changed(_new_rule_name: String) -> void:
 
 func _on_AudioController_mid_changed(val):
 	if running:
-		glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
+		glow_intensity = ProjectSettings.get_setting("global/glow_amount") + val
 		world.set_viscosity(0.75 - val * 0.5)
 		$CanvasLayer2/GUI.update_viscosity(0.75 - val * 0.5)
 		
 func _on_AudioController_bass_changed(val):
 	if running:
-		Globals.RED_COLOR.h += val * COLOR_SHIFT_RATE
-		Globals.GREEN_COLOR.h += val * COLOR_SHIFT_RATE
-		Globals.WHITE_COLOR.h += val * COLOR_SHIFT_RATE
-		Globals.BLUE_COLOR.h += val * COLOR_SHIFT_RATE
+		var sp: float = ProjectSettings.get_setting("global/music_color_shift_speed")
+		var mr: float = ProjectSettings.get_setting("global/music_reactivity")
+		Globals.RED_COLOR.h += val * sp * mr
+		Globals.GREEN_COLOR.h += val * sp * mr
+		Globals.WHITE_COLOR.h += val * sp * mr
+		Globals.BLUE_COLOR.h += val * sp * mr
 		update_colors_of_particles(Globals.RED)
 		update_colors_of_particles(Globals.GREEN)
 		update_colors_of_particles(Globals.WHITE)

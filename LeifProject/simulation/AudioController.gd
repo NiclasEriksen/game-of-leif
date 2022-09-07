@@ -35,7 +35,7 @@ func modify_random_rules() -> void:
 	var mid: float = AUDIO_STRENGTH[1]
 	var disk: float = AUDIO_STRENGTH[2]
 	if not cooldown:
-		if disk + bass > 1.25:
+		if disk + bass > 1.0:
 			cooldown = true
 			RuleLoader.randomize_rules()
 			last_rules = RuleLoader.current_rules.duplicate(true)
