@@ -70,6 +70,7 @@ I will add a brief description later of how to build the libraries for running t
 
 ------
 
+- [3D mode](https://github.com/NiclasEriksen/game-of-leif/issues/6)
 - ~~Configurable particle count (for individual colors)~~
 - Separate processing into own thread
 - ~~Show/hide toggle for GUI~~
