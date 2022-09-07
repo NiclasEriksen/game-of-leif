@@ -21,6 +21,7 @@ var num_rules := 16
 
 var spectrum: AudioEffectInstance
 signal mid_changed(val)
+signal bass_changed(val)
 
 func _ready():
 	spectrum = AudioServer.get_bus_effect_instance(0, 0)
@@ -58,6 +59,7 @@ func modify_random_rules() -> void:
 			RuleLoader.modify_rule(i, 2, (lv - lv / 2) + lv * disk)
 	
 	emit_signal("mid_changed", mid)
+	emit_signal("bass_changed", bass)
 
 
 func _process(_delta):

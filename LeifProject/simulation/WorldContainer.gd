@@ -9,6 +9,7 @@ onready var WORLD_SCENE = preload("res://simulation/LeifWorld.tscn")
 var world: Node2D
 
 const BASE_GLOW_INTENSITY = 0.5
+const COLOR_SHIFT_RATE = 0.001
 var glow_intensity: float = BASE_GLOW_INTENSITY
 
 var RED := Globals.RED
@@ -141,6 +142,35 @@ func _on_AudioController_mid_changed(val):
 		glow_intensity = BASE_GLOW_INTENSITY + val * 2.0
 		world.set_viscosity(0.75 - val * 0.5)
 		$CanvasLayer2/GUI.update_viscosity(0.75 - val * 0.5)
+		
+func _on_AudioController_bass_changed(val):
+	if running:
+		Globals.RED_COLOR.h += val * COLOR_SHIFT_RATE
+		Globals.GREEN_COLOR.h += val * COLOR_SHIFT_RATE
+		Globals.WHITE_COLOR.h += val * COLOR_SHIFT_RATE
+		Globals.BLUE_COLOR.h += val * COLOR_SHIFT_RATE
+		update_colors_of_particles(Globals.RED)
+		update_colors_of_particles(Globals.GREEN)
+		update_colors_of_particles(Globals.WHITE)
+		update_colors_of_particles(Globals.BLUE)
+
+
+func update_colors_of_particles(color_id: int) -> void:
+	match(color_id):
+		Globals.RED:
+			for n in get_tree().get_nodes_in_group("red"):
+				n.modulate = Globals.RED_COLOR
+		Globals.GREEN:
+			for n in get_tree().get_nodes_in_group("green"):
+				n.modulate = Globals.GREEN_COLOR
+		Globals.WHITE:
+			for n in get_tree().get_nodes_in_group("white"):
+				n.modulate = Globals.WHITE_COLOR
+		Globals.BLUE:
+			for n in get_tree().get_nodes_in_group("blue"):
+				n.modulate = Globals.BLUE_COLOR
+		_:
+			pass
 
 
 ######### NEW GUI ############
@@ -212,22 +242,16 @@ func _on_GUI_color_changed(color_id: int, new_color: Color):
 	match(color_id):
 		Globals.RED:
 			Globals.RED_COLOR = new_color
-			for n in get_tree().get_nodes_in_group("red"):
-				n.modulate = Globals.RED_COLOR
 		Globals.GREEN:
 			Globals.GREEN_COLOR = new_color
-			for n in get_tree().get_nodes_in_group("green"):
-				n.modulate = Globals.GREEN_COLOR
 		Globals.WHITE:
 			Globals.WHITE_COLOR = new_color
-			for n in get_tree().get_nodes_in_group("white"):
-				n.modulate = Globals.WHITE_COLOR
 		Globals.BLUE:
 			Globals.BLUE_COLOR = new_color
-			for n in get_tree().get_nodes_in_group("blue"):
-				n.modulate = Globals.BLUE_COLOR
 		_:
 			pass
+
+	update_colors_of_particles(color_id)
 
 
 func _on_ViewportContainer_gui_input(event: InputEvent):
