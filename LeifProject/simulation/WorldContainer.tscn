@@ -36,8 +36,8 @@ WORLD_OFFSET = Vector2( 0, 0 )
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="CanvasLayer2" instance=ExtResource( 7 )]
-margin_right = 1920.0
-margin_bottom = 1860.0
+margin_right = 3840.0
+margin_bottom = 2940.0
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
