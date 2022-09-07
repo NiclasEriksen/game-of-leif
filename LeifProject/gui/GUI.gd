@@ -9,7 +9,7 @@ signal audio_file_selected(path)
 signal music_stop
 signal volume_changed(val)
 signal preset_selected(name)
-signal boundaries_enabled_toggle(value)
+signal boundaries_changed(new_val)
 signal world_size_changed(new_size)
 signal viscosity_changed(value)
 signal particle_count_applied(red, green, white, blue)
@@ -23,6 +23,7 @@ onready var red_count_spinbox = $VBoxContainer/Split/GeneralContainer/ParticleSe
 onready var green_count_spinbox = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2/GreenCountSpinBox
 onready var white_count_spinbox = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3/WhiteCountSpinBox
 onready var blue_count_spinbox = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4/BlueCountSpinBox
+onready var boundaries_button = $VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/BoundariesButton
 onready var rules_container = $VBoxContainer/Split/RuleContainer
 onready var red_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer/ColorRect
 onready var green_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2/ColorRect
@@ -39,6 +40,11 @@ func _ready() -> void:
 	green_count_color_rect.color = Globals.GREEN_COLOR
 	white_count_color_rect.color = Globals.WHITE_COLOR
 	blue_count_color_rect.color = Globals.BLUE_COLOR
+	boundaries_button.clear()
+	boundaries_button.add_item("No bounds", Globals.BOUNDS_DISABLED)
+	boundaries_button.add_item("Strict bounds", Globals.BOUNDS_STRICT)
+	boundaries_button.add_item("Repeating bounds", Globals.BOUNDS_REPEATING)
+	boundaries_button.select(Globals.BOUNDS_STRICT)
 	update_load_menu()
 
 func _process(_delta):
@@ -120,10 +126,6 @@ func _on_CountApplyButton_pressed():
 	)
 
 
-func _on_BoundariesButton_toggled(button_pressed):
-	emit_signal("boundaries_enabled_toggle", button_pressed)
-
-
 func _on_RandomButton_pressed():
 	emit_signal("randomize_rules")
 
@@ -193,3 +195,7 @@ func _on_RuleContainer_range_updated(index: int, value: float):
 
 func _on_ViscositySlider_value_changed(value):
 	emit_signal("viscosity_changed", value)
+
+
+func _on_BoundariesButton_item_selected(index):
+	emit_signal("boundaries_changed", index)

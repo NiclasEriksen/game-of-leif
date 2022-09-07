@@ -12,3 +12,4 @@ const BLUE_COLOR := Color.aqua
 
 const BOUNDS_DISABLED := 0
 const BOUNDS_STRICT := 1
+const BOUNDS_REPEATING := 2

@@ -93,7 +93,7 @@ margin_bottom = 12960.0
 
 [connection signal="mid_changed" from="AudioController" to="." method="_on_AudioController_mid_changed"]
 [connection signal="audio_file_selected" from="CanvasLayer2/GUI" to="." method="_on_GUI_audio_file_selected"]
-[connection signal="boundaries_enabled_toggle" from="CanvasLayer2/GUI" to="." method="_on_GUI_boundaries_enabled_toggle"]
+[connection signal="boundaries_changed" from="CanvasLayer2/GUI" to="." method="_on_GUI_boundaries_changed"]
 [connection signal="music_stop" from="CanvasLayer2/GUI" to="." method="_on_GUI_music_stop"]
 [connection signal="particle_count_applied" from="CanvasLayer2/GUI" to="." method="_on_GUI_particle_count_applied"]
 [connection signal="preset_selected" from="CanvasLayer2/GUI" to="." method="_on_GUI_preset_selected"]

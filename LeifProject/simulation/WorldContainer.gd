@@ -18,7 +18,7 @@ var GREEN := Globals.GREEN
 var WHITE := Globals.WHITE
 var BLUE := Globals.BLUE
 
-var boundaries_enabled = true
+var boundaries_type = Globals.BOUNDS_STRICT
 
 var RED_PARTICLE_COUNT := 900
 var GREEN_PARTICLE_COUNT := 900
@@ -105,10 +105,7 @@ func _reset_world() -> void:
 		world.free()
 	world = WORLD_SCENE.instance()
 	$Control/ViewportContainer/WorldViewport.add_child(world)
-	if boundaries_enabled:
-		world.BOUNDS_TYPE = Globals.BOUNDS_STRICT
-	else:
-		world.BOUNDS_TYPE = Globals.BOUNDS_DISABLED
+	world.BOUNDS_TYPE = boundaries_type
 		
 	world.WORLD_SIZE = WORLD_SIZE
 	world.set_position(WORLD_OFFSET)
@@ -182,14 +179,6 @@ func _on_GUI_particle_count_applied(red: int, green: int, white: int, blue: int)
 	restart_simulation()
 
 
-func _on_GUI_boundaries_enabled_toggle(value: bool):
-	boundaries_enabled = value
-	if value:
-		world.BOUNDS_TYPE = Globals.BOUNDS_STRICT
-	else:
-		world.BOUNDS_TYPE = Globals.BOUNDS_DISABLED
-
-
 func _on_GUI_world_size_changed(new_size: Vector2):
 	WORLD_SIZE = new_size
 	WORLD_OFFSET = (BASE_SIZE - WORLD_SIZE) / 2
@@ -206,9 +195,13 @@ func _on_GUI_restart_world():
 
 
 func _on_GUI_preset_selected(name):
-	print(name)
 	RuleLoader.change_current_rules(name)
 
 
 func _on_GUI_viscosity_changed(value):
 	world.set_viscosity(value)
+
+
+func _on_GUI_boundaries_changed(new_val):
+	boundaries_type = new_val
+	world.BOUNDS_TYPE = new_val
