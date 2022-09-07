@@ -13,6 +13,7 @@ signal boundaries_changed(new_val)
 signal world_size_changed(new_size)
 signal viscosity_changed(value)
 signal particle_count_applied(red, green, white, blue)
+signal color_changed(color_id, new_color)
 
 # UI element paths
 onready var fps_label = $VBoxContainer/Split/GeneralContainer/MainSettings/FPSLabel
@@ -25,10 +26,10 @@ onready var white_count_spinbox = $VBoxContainer/Split/GeneralContainer/Particle
 onready var blue_count_spinbox = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4/BlueCountSpinBox
 onready var boundaries_button = $VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/BoundariesButton
 onready var rules_container = $VBoxContainer/Split/RuleContainer
-onready var red_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer/ColorRect
-onready var green_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2/ColorRect
-onready var white_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3/ColorRect
-onready var blue_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4/ColorRect
+onready var red_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer/RedColorPickerButton
+onready var green_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2/GreenColorPickerButton
+onready var white_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3/WhiteColorPickerButton
+onready var blue_count_color_rect = $VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4/BlueColorPickerButton
 onready var viscosity_slider = $VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/ViscositySlider
 onready var save_rule_name_edit = $SavePanel/RuleNameEdit
 onready var import_string_edit = $ImportPanel/ImportStringEdit
@@ -47,6 +48,7 @@ func _ready() -> void:
 	boundaries_button.add_item("Repeating bounds", Globals.BOUNDS_REPEATING)
 	boundaries_button.select(Globals.BOUNDS_STRICT)
 	update_load_menu()
+	connect("color_changed", rules_container, "_on_color_updated")
 
 func _process(_delta):
 	fps_label.text = "FPS: " + str(Engine.get_frames_per_second())
@@ -200,3 +202,20 @@ func _on_ViscositySlider_value_changed(value):
 
 func _on_BoundariesButton_item_selected(index):
 	emit_signal("boundaries_changed", index)
+
+
+
+func _on_RedColorPickerButton_color_changed(color):
+	emit_signal("color_changed", Globals.RED, color)
+
+
+func _on_GreenColorPickerButton_color_changed(color):
+	emit_signal("color_changed", Globals.GREEN, color)
+
+
+func _on_WhiteColorPickerButton_color_changed(color):
+	emit_signal("color_changed", Globals.WHITE, color)
+
+
+func _on_BlueColorPickerButton_color_changed(color):
+	emit_signal("color_changed", Globals.BLUE, color)

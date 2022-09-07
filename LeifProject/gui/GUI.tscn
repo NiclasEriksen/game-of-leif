@@ -1,9 +1,20 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://gui/RuleBox.tscn" type="PackedScene" id=1]
 [ext_resource path="res://gui/GUI.gd" type="Script" id=2]
 [ext_resource path="res://gui/theme.tres" type="Theme" id=3]
 [ext_resource path="res://gui/RuleContainer.gd" type="Script" id=4]
+
+[sub_resource type="StyleBoxFlat" id=3]
+content_margin_left = 3.0
+content_margin_right = 3.0
+content_margin_top = 3.0
+content_margin_bottom = 3.0
+bg_color = Color( 0.219608, 0.219608, 0.219608, 1 )
+corner_radius_top_left = 5
+corner_radius_top_right = 5
+corner_radius_bottom_right = 5
+corner_radius_bottom_left = 5
 
 [sub_resource type="Animation" id=1]
 resource_name = "Hide"
@@ -88,8 +99,8 @@ tracks/2/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 780.0
-margin_right = 1920.0
-margin_bottom = 1860.0
+margin_right = -1920.0
+margin_bottom = -300.0
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 
@@ -126,48 +137,48 @@ margin_bottom = 36.0
 [node name="Split" type="HSplitContainer" parent="VBoxContainer"]
 margin_top = 40.0
 margin_right = 1920.0
-margin_bottom = 296.0
+margin_bottom = 282.0
 rect_min_size = Vector2( 1920, 0 )
 split_offset = 600
 
 [node name="GeneralContainer" type="HBoxContainer" parent="VBoxContainer/Split"]
-margin_right = 940.0
-margin_bottom = 256.0
+margin_right = 956.0
+margin_bottom = 242.0
 
 [node name="MainSettings" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
 margin_right = 144.0
-margin_bottom = 256.0
+margin_bottom = 242.0
 alignment = 2
 
 [node name="FPSLabel" type="Label" parent="VBoxContainer/Split/GeneralContainer/MainSettings"]
 use_parent_material = true
-margin_top = 168.0
+margin_top = 154.0
 margin_right = 144.0
-margin_bottom = 192.0
+margin_bottom = 178.0
 text = "FPS: 0"
 align = 1
 
 [node name="FullscreenButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/MainSettings"]
-margin_top = 196.0
+margin_top = 182.0
 margin_right = 144.0
-margin_bottom = 224.0
+margin_bottom = 210.0
 text = "Toggle Fullscreen"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/MainSettings"]
-margin_top = 228.0
+margin_top = 214.0
 margin_right = 144.0
-margin_bottom = 256.0
+margin_bottom = 242.0
 text = "Quit"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 148.0
 margin_right = 152.0
-margin_bottom = 256.0
+margin_bottom = 242.0
 
 [node name="MusicContainer" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 156.0
 margin_right = 281.0
-margin_bottom = 256.0
+margin_bottom = 242.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Split/GeneralContainer/MusicContainer"]
 margin_right = 125.0
@@ -209,73 +220,73 @@ text = "Stop playing"
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 285.0
 margin_right = 289.0
-margin_bottom = 256.0
+margin_bottom = 242.0
 
 [node name="PresetContainer" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 293.0
-margin_right = 663.0
-margin_bottom = 256.0
+margin_right = 661.0
+margin_bottom = 242.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
-margin_right = 370.0
+margin_right = 368.0
 margin_bottom = 24.0
 text = "Presets"
 align = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
 margin_top = 28.0
-margin_right = 370.0
+margin_right = 368.0
 margin_bottom = 32.0
 
 [node name="PresetListContainer" type="ScrollContainer" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
 margin_top = 36.0
-margin_right = 370.0
-margin_bottom = 192.0
+margin_right = 368.0
+margin_bottom = 178.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_vertical = 3
 follow_focus = true
 
 [node name="PresetList" type="ItemList" parent="VBoxContainer/Split/GeneralContainer/PresetContainer/PresetListContainer"]
-margin_right = 370.0
-margin_bottom = 156.0
+margin_right = 368.0
+margin_bottom = 142.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SaveButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
-margin_top = 196.0
-margin_right = 370.0
-margin_bottom = 224.0
+margin_top = 182.0
+margin_right = 368.0
+margin_bottom = 210.0
 size_flags_horizontal = 3
 text = "Save"
 
 [node name="ImportButtons" type="HBoxContainer" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
-margin_top = 228.0
-margin_right = 370.0
-margin_bottom = 256.0
+margin_top = 214.0
+margin_right = 368.0
+margin_bottom = 242.0
 
 [node name="ImportButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/PresetContainer/ImportButtons"]
-margin_right = 183.0
+margin_right = 182.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 text = "Import"
 
 [node name="ExportButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/PresetContainer/ImportButtons"]
-margin_left = 187.0
-margin_right = 370.0
+margin_left = 186.0
+margin_right = 368.0
 margin_bottom = 28.0
 size_flags_horizontal = 3
 text = "Export"
 
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
-margin_left = 667.0
-margin_right = 671.0
-margin_bottom = 256.0
+margin_left = 665.0
+margin_right = 669.0
+margin_bottom = 242.0
 
 [node name="WorldSettingsContainer" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
-margin_left = 675.0
-margin_right = 827.0
-margin_bottom = 256.0
+margin_left = 673.0
+margin_right = 825.0
+margin_bottom = 242.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer"]
 margin_right = 152.0
@@ -378,39 +389,40 @@ tick_count = 3
 ticks_on_borders = true
 
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
-margin_left = 831.0
-margin_right = 835.0
-margin_bottom = 256.0
+margin_left = 829.0
+margin_right = 833.0
+margin_bottom = 242.0
 
 [node name="ParticleSettingsContainer" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
-margin_left = 839.0
-margin_right = 940.0
-margin_bottom = 256.0
+margin_left = 837.0
+margin_right = 956.0
+margin_bottom = 242.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
-margin_right = 101.0
+margin_right = 119.0
 margin_bottom = 24.0
-text = "Particle count"
+text = "Particle settings"
+align = 1
 
 [node name="HSeparator" type="HSeparator" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
 margin_top = 28.0
-margin_right = 101.0
+margin_right = 119.0
 margin_bottom = 32.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
 margin_top = 36.0
-margin_right = 101.0
+margin_right = 119.0
 margin_bottom = 70.0
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer"]
-margin_right = 8.0
+[node name="RedColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer"]
+margin_right = 32.0
 margin_bottom = 34.0
-rect_min_size = Vector2( 8, 0 )
-color = Color( 1, 0, 0, 1 )
+rect_min_size = Vector2( 32, 0 )
+custom_styles/normal = SubResource( 3 )
 
 [node name="RedCountSpinBox" type="SpinBox" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer"]
-margin_left = 12.0
-margin_right = 101.0
+margin_left = 36.0
+margin_right = 119.0
 margin_bottom = 34.0
 size_flags_horizontal = 3
 max_value = 5000.0
@@ -421,18 +433,18 @@ align = 1
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
 margin_top = 74.0
-margin_right = 101.0
+margin_right = 119.0
 margin_bottom = 108.0
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2"]
-margin_right = 8.0
+[node name="GreenColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2"]
+margin_right = 32.0
 margin_bottom = 34.0
-rect_min_size = Vector2( 8, 0 )
-color = Color( 0.0313726, 1, 0, 1 )
+rect_min_size = Vector2( 32, 0 )
+custom_styles/normal = SubResource( 3 )
 
 [node name="GreenCountSpinBox" type="SpinBox" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2"]
-margin_left = 12.0
-margin_right = 101.0
+margin_left = 36.0
+margin_right = 119.0
 margin_bottom = 34.0
 size_flags_horizontal = 3
 max_value = 5000.0
@@ -443,17 +455,18 @@ align = 1
 
 [node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
 margin_top = 112.0
-margin_right = 101.0
+margin_right = 119.0
 margin_bottom = 146.0
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3"]
-margin_right = 8.0
+[node name="WhiteColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3"]
+margin_right = 32.0
 margin_bottom = 34.0
-rect_min_size = Vector2( 8, 0 )
+rect_min_size = Vector2( 32, 0 )
+custom_styles/normal = SubResource( 3 )
 
 [node name="WhiteCountSpinBox" type="SpinBox" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3"]
-margin_left = 12.0
-margin_right = 101.0
+margin_left = 36.0
+margin_right = 119.0
 margin_bottom = 34.0
 size_flags_horizontal = 3
 max_value = 5000.0
@@ -464,18 +477,18 @@ align = 1
 
 [node name="HBoxContainer4" type="HBoxContainer" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
 margin_top = 150.0
-margin_right = 101.0
+margin_right = 119.0
 margin_bottom = 184.0
 
-[node name="ColorRect" type="ColorRect" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4"]
-margin_right = 8.0
+[node name="BlueColorPickerButton" type="ColorPickerButton" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4"]
+margin_right = 32.0
 margin_bottom = 34.0
-rect_min_size = Vector2( 8, 0 )
-color = Color( 0, 0.317647, 0.988235, 1 )
+rect_min_size = Vector2( 32, 0 )
+custom_styles/normal = SubResource( 3 )
 
 [node name="BlueCountSpinBox" type="SpinBox" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4"]
-margin_left = 12.0
-margin_right = 101.0
+margin_left = 36.0
+margin_right = 119.0
 margin_bottom = 34.0
 size_flags_horizontal = 3
 max_value = 5000.0
@@ -486,14 +499,15 @@ align = 1
 
 [node name="CountApplyButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
 margin_top = 188.0
-margin_right = 101.0
+margin_right = 119.0
 margin_bottom = 216.0
 text = "Apply"
 
 [node name="RuleContainer" type="GridContainer" parent="VBoxContainer/Split"]
-margin_left = 952.0
+margin_left = 968.0
+margin_top = 9.0
 margin_right = 1920.0
-margin_bottom = 256.0
+margin_bottom = 233.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/vseparation = 16
@@ -501,92 +515,88 @@ columns = 4
 script = ExtResource( 4 )
 
 [node name="RuleBox" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_right = 239.0
-margin_bottom = 52.0
+margin_bottom = 44.0
 
 [node name="RuleBox2" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 243.0
-margin_right = 482.0
-margin_bottom = 52.0
+margin_left = 239.0
+margin_right = 474.0
+margin_bottom = 44.0
 
 [node name="RuleBox3" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 486.0
-margin_right = 725.0
-margin_bottom = 52.0
+margin_left = 478.0
+margin_right = 713.0
+margin_bottom = 44.0
 
 [node name="RuleBox4" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 729.0
-margin_right = 968.0
-margin_bottom = 52.0
+margin_left = 717.0
+margin_right = 952.0
+margin_bottom = 44.0
 
 [node name="RuleBox5" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_top = 68.0
-margin_right = 239.0
-margin_bottom = 120.0
+margin_top = 60.0
+margin_bottom = 104.0
 
 [node name="RuleBox6" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 243.0
-margin_top = 68.0
-margin_right = 482.0
-margin_bottom = 120.0
+margin_left = 239.0
+margin_top = 60.0
+margin_right = 474.0
+margin_bottom = 104.0
 
 [node name="RuleBox7" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 486.0
-margin_top = 68.0
-margin_right = 725.0
-margin_bottom = 120.0
+margin_left = 478.0
+margin_top = 60.0
+margin_right = 713.0
+margin_bottom = 104.0
 
 [node name="RuleBox8" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 729.0
-margin_top = 68.0
-margin_right = 968.0
-margin_bottom = 120.0
+margin_left = 717.0
+margin_top = 60.0
+margin_right = 952.0
+margin_bottom = 104.0
 
 [node name="RuleBox9" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_top = 136.0
-margin_right = 239.0
-margin_bottom = 188.0
+margin_top = 120.0
+margin_bottom = 164.0
 
 [node name="RuleBox10" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 243.0
-margin_top = 136.0
-margin_right = 482.0
-margin_bottom = 188.0
+margin_left = 239.0
+margin_top = 120.0
+margin_right = 474.0
+margin_bottom = 164.0
 
 [node name="RuleBox11" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 486.0
-margin_top = 136.0
-margin_right = 725.0
-margin_bottom = 188.0
+margin_left = 478.0
+margin_top = 120.0
+margin_right = 713.0
+margin_bottom = 164.0
 
 [node name="RuleBox12" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 729.0
-margin_top = 136.0
-margin_right = 968.0
-margin_bottom = 188.0
+margin_left = 717.0
+margin_top = 120.0
+margin_right = 952.0
+margin_bottom = 164.0
 
 [node name="RuleBox13" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_top = 204.0
-margin_right = 239.0
-margin_bottom = 256.0
+margin_top = 180.0
+margin_bottom = 224.0
 
 [node name="RuleBox14" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 243.0
-margin_top = 204.0
-margin_right = 482.0
-margin_bottom = 256.0
+margin_left = 239.0
+margin_top = 180.0
+margin_right = 474.0
+margin_bottom = 224.0
 
 [node name="RuleBox15" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 486.0
-margin_top = 204.0
-margin_right = 725.0
-margin_bottom = 256.0
+margin_left = 478.0
+margin_top = 180.0
+margin_right = 713.0
+margin_bottom = 224.0
 
 [node name="RuleBox16" parent="VBoxContainer/Split/RuleContainer" instance=ExtResource( 1 )]
-margin_left = 729.0
-margin_top = 204.0
-margin_right = 968.0
-margin_bottom = 256.0
+margin_left = 717.0
+margin_top = 180.0
+margin_right = 952.0
+margin_bottom = 224.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 anims/Hide = SubResource( 1 )
@@ -658,6 +668,10 @@ filters = PoolStringArray( "*.mp3, *.ogg ; Audio files\"" )
 [connection signal="value_changed" from="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/WorldSizeContainer/WorldWidthContainer/WorldWidthSpinbox" to="." method="_on_WorldWidthSpinbox_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/WorldSizeContainer/WorldHeightContainer/WorldHeightSpinbox" to="." method="_on_WorldHeightSpinbox_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer/ViscositySlider" to="." method="_on_ViscositySlider_value_changed"]
+[connection signal="color_changed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer/RedColorPickerButton" to="." method="_on_RedColorPickerButton_color_changed"]
+[connection signal="color_changed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer2/GreenColorPickerButton" to="." method="_on_GreenColorPickerButton_color_changed"]
+[connection signal="color_changed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3/WhiteColorPickerButton" to="." method="_on_WhiteColorPickerButton_color_changed"]
+[connection signal="color_changed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4/BlueColorPickerButton" to="." method="_on_BlueColorPickerButton_color_changed"]
 [connection signal="pressed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/CountApplyButton" to="." method="_on_CountApplyButton_pressed"]
 [connection signal="attraction_updated" from="VBoxContainer/Split/RuleContainer" to="." method="_on_RuleContainer_attraction_updated"]
 [connection signal="range_updated" from="VBoxContainer/Split/RuleContainer" to="." method="_on_RuleContainer_range_updated"]

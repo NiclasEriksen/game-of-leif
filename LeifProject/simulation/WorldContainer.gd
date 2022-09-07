@@ -204,3 +204,25 @@ func _on_GUI_viscosity_changed(value):
 func _on_GUI_boundaries_changed(new_val):
 	boundaries_type = new_val
 	world.BOUNDS_TYPE = new_val
+
+
+func _on_GUI_color_changed(color_id: int, new_color: Color):
+	match(color_id):
+		Globals.RED:
+			Globals.RED_COLOR = new_color
+			for n in get_tree().get_nodes_in_group("red"):
+				n.modulate = Globals.RED_COLOR
+		Globals.GREEN:
+			Globals.GREEN_COLOR = new_color
+			for n in get_tree().get_nodes_in_group("green"):
+				n.modulate = Globals.GREEN_COLOR
+		Globals.WHITE:
+			Globals.WHITE_COLOR = new_color
+			for n in get_tree().get_nodes_in_group("white"):
+				n.modulate = Globals.WHITE_COLOR
+		Globals.BLUE:
+			Globals.BLUE_COLOR = new_color
+			for n in get_tree().get_nodes_in_group("blue"):
+				n.modulate = Globals.BLUE_COLOR
+		_:
+			pass
