@@ -50,6 +50,16 @@ func _reset_settings() -> void:
 		current_rule_name = "default"
 	current_rules = rules[current_rule_name].duplicate(true)
 
+func zeroize_rules() -> void:
+	var _rules = current_rules
+	for i in range(len(_rules)):
+		var r: Array = _rules[i]
+		r[2] = 0.0
+		r[3] = 0.0
+
+	current_rules = _rules
+	current_rule_name = "zero"
+	emit_signal("current_rules_changed", current_rule_name)
 
 func randomize_rules() -> void:
 	var _rules = current_rules

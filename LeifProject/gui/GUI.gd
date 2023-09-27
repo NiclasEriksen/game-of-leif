@@ -8,6 +8,7 @@ signal randomize_rules
 signal audio_file_selected(path)
 signal music_stop
 signal volume_changed(val)
+signal cooldown_changed(val)
 signal preset_selected(name)
 signal boundaries_changed(new_val)
 signal world_size_changed(new_size)
@@ -110,6 +111,8 @@ func _on_StopButton_pressed():
 func _on_VolumeSlider_value_changed(value):
 	emit_signal("volume_changed", clamp(value / 100.0, 0.0, 1.0))
 
+func _on_CooldownSlider_value_changed(value):
+	emit_signal("cooldown_changed", clamp(value, 1.0, 100.0))
 
 func _on_FullscreenButton_pressed():
 	OS.window_fullscreen = !OS.window_fullscreen
@@ -219,3 +222,6 @@ func _on_WhiteColorPickerButton_color_changed(color):
 
 func _on_BlueColorPickerButton_color_changed(color):
 	emit_signal("color_changed", Globals.BLUE, color)
+
+func _on_ZeroButton_pressed():
+	RuleLoader.zeroize_rules()
