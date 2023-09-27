@@ -36,8 +36,8 @@ WORLD_OFFSET = Vector2( 0, 0 )
 [node name="CanvasLayer2" type="CanvasLayer" parent="."]
 
 [node name="GUI" parent="CanvasLayer2" instance=ExtResource( 7 )]
-margin_right = 5760.0
-margin_bottom = 4020.0
+margin_right = 9600.0
+margin_bottom = 6180.0
 
 [node name="Control" type="Control" parent="."]
 anchor_right = 1.0
@@ -94,6 +94,7 @@ current = true
 [connection signal="audio_file_selected" from="CanvasLayer2/GUI" to="." method="_on_GUI_audio_file_selected"]
 [connection signal="boundaries_changed" from="CanvasLayer2/GUI" to="." method="_on_GUI_boundaries_changed"]
 [connection signal="color_changed" from="CanvasLayer2/GUI" to="." method="_on_GUI_color_changed"]
+[connection signal="cooldown_changed" from="CanvasLayer2/GUI" to="AudioController" method="_on_GUI_cooldown_changed"]
 [connection signal="music_stop" from="CanvasLayer2/GUI" to="." method="_on_GUI_music_stop"]
 [connection signal="particle_count_applied" from="CanvasLayer2/GUI" to="." method="_on_GUI_particle_count_applied"]
 [connection signal="preset_selected" from="CanvasLayer2/GUI" to="." method="_on_GUI_preset_selected"]

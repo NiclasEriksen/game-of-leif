@@ -78,3 +78,6 @@ func _process(_delta):
 
 func _on_RandomizeTimer_timeout():
 	cooldown = false
+
+func _on_GUI_cooldown_changed(val):
+	$RandomizeTimer.wait_time = val

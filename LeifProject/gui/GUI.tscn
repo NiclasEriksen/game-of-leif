@@ -99,8 +99,8 @@ tracks/2/keys = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_top = 780.0
-margin_right = 3840.0
-margin_bottom = 2940.0
+margin_right = 7680.0
+margin_bottom = 5100.0
 theme = ExtResource( 3 )
 script = ExtResource( 2 )
 
@@ -137,48 +137,48 @@ margin_bottom = 36.0
 [node name="Split" type="HSplitContainer" parent="VBoxContainer"]
 margin_top = 40.0
 margin_right = 1920.0
-margin_bottom = 282.0
+margin_bottom = 288.0
 rect_min_size = Vector2( 1920, 0 )
 split_offset = 600
 
 [node name="GeneralContainer" type="HBoxContainer" parent="VBoxContainer/Split"]
 margin_right = 956.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="MainSettings" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
 margin_right = 144.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 alignment = 2
 
 [node name="FPSLabel" type="Label" parent="VBoxContainer/Split/GeneralContainer/MainSettings"]
 use_parent_material = true
-margin_top = 154.0
+margin_top = 160.0
 margin_right = 144.0
-margin_bottom = 178.0
+margin_bottom = 184.0
 text = "FPS: 0"
 align = 1
 
 [node name="FullscreenButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/MainSettings"]
-margin_top = 182.0
+margin_top = 188.0
 margin_right = 144.0
-margin_bottom = 210.0
+margin_bottom = 216.0
 text = "Toggle Fullscreen"
 
 [node name="QuitButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/MainSettings"]
-margin_top = 214.0
+margin_top = 220.0
 margin_right = 144.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 text = "Quit"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 148.0
 margin_right = 152.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="MusicContainer" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 156.0
 margin_right = 281.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Split/GeneralContainer/MusicContainer"]
 margin_right = 125.0
@@ -211,21 +211,35 @@ margin_bottom = 112.0
 step = 5.0
 value = 100.0
 
-[node name="StopButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/MusicContainer"]
+[node name="Cooldown" type="Label" parent="VBoxContainer/Split/GeneralContainer/MusicContainer"]
 margin_top = 116.0
 margin_right = 125.0
-margin_bottom = 144.0
+margin_bottom = 140.0
+text = "Cooldown"
+align = 1
+
+[node name="CooldownSlider" type="HSlider" parent="VBoxContainer/Split/GeneralContainer/MusicContainer"]
+margin_top = 144.0
+margin_right = 125.0
+margin_bottom = 160.0
+min_value = 1.0
+value = 5.0
+
+[node name="StopButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/MusicContainer"]
+margin_top = 164.0
+margin_right = 125.0
+margin_bottom = 192.0
 text = "Stop playing"
 
 [node name="VSeparator3" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 285.0
 margin_right = 289.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="PresetContainer" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 293.0
 margin_right = 661.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 size_flags_horizontal = 3
 
 [node name="Label" type="Label" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
@@ -242,28 +256,28 @@ margin_bottom = 32.0
 [node name="PresetListContainer" type="ScrollContainer" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
 margin_top = 36.0
 margin_right = 368.0
-margin_bottom = 178.0
+margin_bottom = 184.0
 rect_min_size = Vector2( 160, 0 )
 size_flags_vertical = 3
 follow_focus = true
 
 [node name="PresetList" type="ItemList" parent="VBoxContainer/Split/GeneralContainer/PresetContainer/PresetListContainer"]
 margin_right = 368.0
-margin_bottom = 142.0
+margin_bottom = 148.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
 [node name="SaveButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
-margin_top = 182.0
+margin_top = 188.0
 margin_right = 368.0
-margin_bottom = 210.0
+margin_bottom = 216.0
 size_flags_horizontal = 3
 text = "Save"
 
 [node name="ImportButtons" type="HBoxContainer" parent="VBoxContainer/Split/GeneralContainer/PresetContainer"]
-margin_top = 214.0
+margin_top = 220.0
 margin_right = 368.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="ImportButton" type="Button" parent="VBoxContainer/Split/GeneralContainer/PresetContainer/ImportButtons"]
 margin_right = 182.0
@@ -281,12 +295,12 @@ text = "Export"
 [node name="VSeparator4" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 665.0
 margin_right = 669.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="WorldSettingsContainer" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 673.0
 margin_right = 825.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Split/GeneralContainer/WorldSettingsContainer"]
 margin_right = 152.0
@@ -395,12 +409,12 @@ ticks_on_borders = true
 [node name="VSeparator5" type="VSeparator" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 829.0
 margin_right = 833.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="ParticleSettingsContainer" type="VBoxContainer" parent="VBoxContainer/Split/GeneralContainer"]
 margin_left = 837.0
 margin_right = 956.0
-margin_bottom = 242.0
+margin_bottom = 248.0
 
 [node name="Label" type="Label" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
 margin_right = 119.0
@@ -507,11 +521,17 @@ margin_right = 119.0
 margin_bottom = 216.0
 text = "Apply"
 
+[node name="Zero" type="Button" parent="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer"]
+margin_top = 220.0
+margin_right = 119.0
+margin_bottom = 248.0
+text = "Zero"
+
 [node name="RuleContainer" type="GridContainer" parent="VBoxContainer/Split"]
 margin_left = 968.0
-margin_top = 9.0
+margin_top = 12.0
 margin_right = 1920.0
-margin_bottom = 233.0
+margin_bottom = 236.0
 size_flags_horizontal = 3
 size_flags_vertical = 4
 custom_constants/vseparation = 16
@@ -661,6 +681,7 @@ filters = PoolStringArray( "*.mp3, *.ogg ; Audio files\"" )
 [connection signal="pressed" from="VBoxContainer/Split/GeneralContainer/MainSettings/QuitButton" to="." method="_on_QuitButton_pressed"]
 [connection signal="pressed" from="VBoxContainer/Split/GeneralContainer/MusicContainer/LoadAudioButton" to="." method="_on_LoadAudioButton_pressed"]
 [connection signal="value_changed" from="VBoxContainer/Split/GeneralContainer/MusicContainer/VolumeSlider" to="." method="_on_VolumeSlider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Split/GeneralContainer/MusicContainer/CooldownSlider" to="." method="_on_CooldownSlider_value_changed"]
 [connection signal="pressed" from="VBoxContainer/Split/GeneralContainer/MusicContainer/StopButton" to="." method="_on_StopButton_pressed"]
 [connection signal="item_selected" from="VBoxContainer/Split/GeneralContainer/PresetContainer/PresetListContainer/PresetList" to="." method="_on_PresetList_item_selected"]
 [connection signal="pressed" from="VBoxContainer/Split/GeneralContainer/PresetContainer/SaveButton" to="." method="_on_SaveButton_pressed"]
@@ -677,6 +698,7 @@ filters = PoolStringArray( "*.mp3, *.ogg ; Audio files\"" )
 [connection signal="color_changed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer3/WhiteColorPickerButton" to="." method="_on_WhiteColorPickerButton_color_changed"]
 [connection signal="color_changed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/HBoxContainer4/BlueColorPickerButton" to="." method="_on_BlueColorPickerButton_color_changed"]
 [connection signal="pressed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/CountApplyButton" to="." method="_on_CountApplyButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/Split/GeneralContainer/ParticleSettingsContainer/Zero" to="." method="_on_ZeroButton_pressed"]
 [connection signal="attraction_updated" from="VBoxContainer/Split/RuleContainer" to="." method="_on_RuleContainer_attraction_updated"]
 [connection signal="range_updated" from="VBoxContainer/Split/RuleContainer" to="." method="_on_RuleContainer_range_updated"]
 [connection signal="confirmed" from="SavePanel" to="." method="_on_SavePanel_confirmed"]
